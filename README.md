@@ -1,4 +1,4 @@
-## NOTE: WorkflowSim IS NO LONGER MAINTAINED.
+## NOTE: WorkflowSim fork that can incorporate a prediction error
 
 ---
 
