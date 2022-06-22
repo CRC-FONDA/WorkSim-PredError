@@ -1,0 +1,86 @@
+<?xml version='1.0'?>
+<platform version="4.1">
+    <zone id="AS0" routing="Full">
+        <host id="m5.large" speed="1Gf" core="2">
+            <prop id="ram" value="8"/>
+        </host>
+        <host id="m5.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="m5.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="m5a.large" speed="1Gf" core="2">
+            <prop id="ram" value="8"/>
+        </host>
+        <host id="m5a.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="m5a.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="m5zn.large" speed="1Gf" core="2">
+            <prop id="ram" value="8"/>
+        </host>
+        <host id="m5zn.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="m5zn.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="c5.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="8"/>
+        </host>
+        <host id="c5.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="c5a.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="8"/>
+        </host>
+        <host id="c5a.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="r5.large" speed="1Gf" core="2">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="r5.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="r5.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="64"/>
+        </host>
+        <host id="r5a.large" speed="1Gf" core="2">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="r5a.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="r5a.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="64"/>
+        </host>
+        <host id="d3.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="d3.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="64"/>
+        </host>
+        <host id="i3.large" speed="1Gf" core="2">
+            <prop id="ram" value="15"/>
+        </host>
+        <host id="i3.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="30"/>
+        </host>
+        <host id="i3.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="61"/>
+        </host>
+        <host id="z1d.large" speed="1Gf" core="2">
+            <prop id="ram" value="16"/>
+        </host>
+        <host id="z1d.xlarge" speed="1Gf" core="4">
+            <prop id="ram" value="32"/>
+        </host>
+        <host id="z1d.2xlarge" speed="1Gf" core="8">
+            <prop id="ram" value="64"/>
+        </host>
+    </zone>
+</platform>
