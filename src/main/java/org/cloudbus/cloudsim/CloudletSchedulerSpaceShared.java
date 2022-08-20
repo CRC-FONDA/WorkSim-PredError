@@ -14,9 +14,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.jayway.jsonpath.JsonPath;
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.util.Precision;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.workflowsim.Job;
 import org.workflowsim.MetaGetter;
@@ -475,21 +477,24 @@ public class CloudletSchedulerSpaceShared extends CloudletScheduler {
         Task task = job.getTaskList().get(0);
         double task_runtime = 0;
 
-        AtomicInteger runtimeSum = new AtomicInteger();
-        AtomicInteger count = new AtomicInteger();
+        AtomicReference<Double> predictedRuntime = new AtomicReference<>(-1.0);
+
         this.taskList.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
 
-            if (task.getType().contains(((String) entry.get("taskName"))) &&
-                    vm.getName().equals((String) entry.get("instanceType")) &&
-                    ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                runtimeSum.addAndGet((Integer) entry.get("realtime"));
-                count.getAndIncrement();
+            if (task.getType().toLowerCase().contains(((String) entry.get("taskName")).toLowerCase()) &&
+                    vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
+                    ((String) entry.get("predictor")).equalsIgnoreCase(MetaGetter.getPredictor()) &&
+                    Precision.equals(Double.valueOf((String) entry.get("taskInputSize")),task.getInputSize())
+            ) {
+                predictedRuntime.set(Double.valueOf((String) entry.get("realtime")));
             }
-        });
-        if (count.get() != 0) {
-            task_runtime = runtimeSum.get() / count.get();
-            //task_runtime = task.getCloudletLength() / vm.getMips();
+            // Chipseq scheint nicht zu gehen
 
+
+        });
+        if (predictedRuntime.get() != -1.0) {
+            task_runtime = predictedRuntime.get();
+            // FALSCHE LAUFZEIT MIT DEN PREDICTETEN WERTEN
         } else {
             task_runtime = task.getCloudletLength() / vm.getMips();
         }
@@ -499,10 +504,16 @@ public class CloudletSchedulerSpaceShared extends CloudletScheduler {
         // time to file transferring. It must be added to the cloudlet length
         // scale the runtime linear up since we assume profiling
         double extraSize = capacity * fileTransferTime;
-        double length = task_runtime * 1000 / 3600 ;
+        double length = task_runtime;
         length += extraSize;
 
         cloudlet.setCloudletLength((long) length);
+
+        if(((Job) cloudlet).getTaskList().size() != 0) {
+            Log.printLine("Schedules " + ((Job) cloudlet).getTaskList().get(0).getType() + " with "
+                    + cloudlet.getCloudletLength() + " to VM " + vm.getName() + "(" + vm.getId() + ")");
+        }
+
         return cloudlet.getCloudletLength() / capacity;
     }
 

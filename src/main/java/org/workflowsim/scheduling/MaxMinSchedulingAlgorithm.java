@@ -15,11 +15,9 @@
  */
 package org.workflowsim.scheduling;
 
-import com.jayway.jsonpath.JsonPath;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.workflowsim.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -46,7 +44,7 @@ public class MaxMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
      */
     public MaxMinSchedulingAlgorithm() {
         super();
-        arr = MetaGetter.getArr();
+        arr = MetaGetter.getArrLotaruCSV();
         random = new Random();
 
     }
@@ -183,9 +181,10 @@ public class MaxMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                     this.arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
 
                         if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                vm.getName().equals((String) entry.get("instanceType")) &&
-                                ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                            runtimeSum.addAndGet((Integer) entry.get("realtime"));
+                                vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
+                                ((String) entry.get("wfName")).contains(task.getWorkflow()) &&
+                                ((String) entry.get("predictor")).equalsIgnoreCase(MetaGetter.getPredictor())) {
+                            runtimeSum.addAndGet((Integer) entry.get("realtimePredicted"));
                             count.getAndIncrement();
                         }
                     });
@@ -193,13 +192,11 @@ public class MaxMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                     long lengthWithNoise;
 
                     if (count.get() != 0) {
-                        lengthWithNoise = (long) ((runtimeSum.get() / count.get()) * MetaGetter.getRandomFactor());
+                        lengthWithNoise = (runtimeSum.get() / count.get());
+                    } else if (count.get() > 1) {
+                        throw new RuntimeException("Why is count > 1? There should only be one prediction per specific task");
                     } else {
-                        lengthWithNoise = (long) (task.getCloudletLength() * MetaGetter.getRandomFactor());
-                    }
-
-                    if(task.getType().contains("PLOTPROFILE")) {
-                        System.out.println("Test");
+                        lengthWithNoise = (long) (task.getCloudletLength() / vm.getMips());
                     }
 
                     if (task.equals(minTask) && minTime > lengthWithNoise) {

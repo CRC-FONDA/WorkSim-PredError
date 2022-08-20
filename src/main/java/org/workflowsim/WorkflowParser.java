@@ -176,12 +176,12 @@ public final class WorkflowParser {
                         }   //multiple the scale, by default it is 1.0
                         length *= Parameters.getRuntimeScale();
                         long lengthWithNoise;
-                    /**    if (random.nextDouble() > 0.5) {
-                            lengthWithNoise = (long) (length * (1 + normalDistribution.sample() * 0.25));
-                        } else {
-                            lengthWithNoise = (long) (length * (1 - normalDistribution.sample() * 0.25));
-                        }
-                     **/
+                        /**    if (random.nextDouble() > 0.5) {
+                         lengthWithNoise = (long) (length * (1 + normalDistribution.sample() * 0.25));
+                         } else {
+                         lengthWithNoise = (long) (length * (1 - normalDistribution.sample() * 0.25));
+                         }
+                         **/
 
                         List<Element> fileList = node.getChildren();
                         List<FileItem> mFileList = new ArrayList<>();
@@ -268,9 +268,28 @@ public final class WorkflowParser {
                         }
                         task.setType(nodeType);
                         task.setWorkflow(workflow);
+
+                        if (nodeType.contains("(") && nodeType.contains("SAMPLE")) {
+                            String braces = nodeType.split(" ()")[1];
+                            String[] inBraces = braces.split("_");
+                            if (inBraces.length >= 4) {
+
+                                if (inBraces[3].contains(")")) {
+                                    inBraces[3] = inBraces[3].substring(0, inBraces[3].length() - 1);
+                                }
+
+                                task.setInputSize(Double.valueOf(inBraces[3]));
+                            } else {
+                                task.setInputSize(-1.0);
+                            }
+                        } else {
+                            task.setInputSize(-1.0);
+                        }
+
+
                         task.setUserId(userId);
                         task.setNumberOfPes(numcores);
-                       // task.setCloudletLengthWithNoise(lengthWithNoise);
+                        // task.setCloudletLengthWithNoise(lengthWithNoise);
                         mName2Task.put(nodeName, task);
                         for (FileItem file : mFileList) {
                             task.addRequiredFile(file.getName());

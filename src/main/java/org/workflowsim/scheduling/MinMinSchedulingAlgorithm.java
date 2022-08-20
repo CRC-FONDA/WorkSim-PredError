@@ -15,18 +15,11 @@
  */
 package org.workflowsim.scheduling;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import com.jayway.jsonpath.JsonPath;
 import org.apache.commons.math3.distribution.NormalDistribution;
-import org.apache.commons.math3.random.JDKRandomGenerator;
-import org.apache.commons.math3.random.RandomGenerator;
-import org.cloudbus.cloudsim.Cloudlet;
 import org.workflowsim.*;
 
 /**
@@ -47,7 +40,7 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
         super();
 
 
-        arr = MetaGetter.getArr();
+        arr = MetaGetter.getArrLotaruCSV();
         random = new Random();
 
     }
@@ -181,9 +174,9 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                         this.arr.forEach(entry -> {
 
                             if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                    vm.getName().equals((String) entry.get("instanceType")) &&
+                                    vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
                                     ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                                runtimeSum.addAndGet((Integer) entry.get("realtime"));
+                                runtimeSum.addAndGet((Integer) entry.get("realtimePredicted"));
                                 count.getAndIncrement();
                             }
                         });
@@ -191,9 +184,9 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                         long lengthWithNoise;
 
                         if (count.get() != 0) {
-                            lengthWithNoise = (long) ((runtimeSum.get() / count.get()) * MetaGetter.getRandomFactor());
+                            lengthWithNoise = (long) ((runtimeSum.get() / count.get()));
                         } else {
-                            lengthWithNoise = (long) (task.getCloudletLength() * MetaGetter.getRandomFactor());
+                            throw new RuntimeException("You may need to remove the task from the DAG");
                         }
 
                         if (minTime > lengthWithNoise) {
@@ -277,9 +270,10 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                     this.arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
 
                         if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                vm.getName().equals((String) entry.get("instanceType")) &&
-                                ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                            runtimeSum.addAndGet((Integer) entry.get("realtime"));
+                                vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
+                                ((String) entry.get("wfName")).contains(task.getWorkflow()) &&
+                                ((String) entry.get("predictor")).equalsIgnoreCase(MetaGetter.getPredictor())) {
+                            runtimeSum.addAndGet((Integer) entry.get("realtimePredicted"));
                             count.getAndIncrement();
                         }
                     });
@@ -288,6 +282,8 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
                     if (count.get() != 0) {
                         lengthWithNoise = (long) ((runtimeSum.get() / count.get()) * MetaGetter.getRandomFactor());
+                    } else if (count.get() > 1) {
+                        throw new RuntimeException("Why is count > 1? There should only be one prediction per specific task");
                     } else {
                         lengthWithNoise = (long) (task.getCloudletLength() * MetaGetter.getRandomFactor());
                     }

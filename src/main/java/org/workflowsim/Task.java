@@ -70,6 +70,8 @@ public class Task extends Cloudlet {
 
     private String workflow;
 
+    private Double InputSize;
+
     /**
      * The finish time of a task (Because cloudlet does not allow WorkflowSim to
      * update finish_time)
@@ -332,5 +334,13 @@ public class Task extends Cloudlet {
         }
         cost += costPerBw * fileSize;
         return cost;
+    }
+
+    public Double getInputSize() {
+        return InputSize;
+    }
+
+    public void setInputSize(Double inputSize) {
+        InputSize = inputSize;
     }
 }

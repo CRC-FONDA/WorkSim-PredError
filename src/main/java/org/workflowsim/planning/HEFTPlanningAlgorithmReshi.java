@@ -80,7 +80,7 @@ public class HEFTPlanningAlgorithmReshi extends BasePlanningAlgorithm {
         earliestFinishTimes = new HashMap<>();
         schedules = new HashMap<>();
 
-        arr = MetaGetter.getArr();
+        arr = MetaGetter.getArrReshiJson();
 
     }
 
@@ -142,7 +142,7 @@ public class HEFTPlanningAlgorithmReshi extends BasePlanningAlgorithm {
                     arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
 
                         if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                vm.getName().equals((String) entry.get("instanceType")) &&
+                                vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
                                 ((String) entry.get("wfName")).contains(task.getWorkflow())) {
                             runtimeSum.addAndGet((Integer) entry.get("realtime"));
                             count.getAndIncrement();

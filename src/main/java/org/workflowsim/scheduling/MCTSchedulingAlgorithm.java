@@ -15,10 +15,8 @@
  */
 package org.workflowsim.scheduling;
 
-import com.jayway.jsonpath.JsonPath;
 import org.workflowsim.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,8 +28,8 @@ import java.util.stream.Collectors;
  * MCT algorithm
  *
  * @author Weiwei Chen
- * @since WorkflowSim Toolkit 1.0
  * @date Apr 9, 2013
+ * @since WorkflowSim Toolkit 1.0
  */
 public class MCTSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
@@ -42,7 +40,7 @@ public class MCTSchedulingAlgorithm extends BaseSchedulingAlgorithm {
     public MCTSchedulingAlgorithm() {
         super();
 
-        arr = MetaGetter.getArr();
+        arr = MetaGetter.getArrLotaruCSV();
         random = new Random();
 
     }
@@ -143,9 +141,10 @@ public class MCTSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                 this.arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
 
                     if (task.getType().contains(((String) entry.get("taskName"))) &&
-                            vm.getName().equals((String) entry.get("instanceType")) &&
-                            ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                        runtimeSum.addAndGet((Integer) entry.get("realtime"));
+                            vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
+                            ((String) entry.get("wfName")).contains(task.getWorkflow()) &&
+                            ((String) entry.get("predictor")).equalsIgnoreCase(MetaGetter.getPredictor())) {
+                        runtimeSum.addAndGet((Integer) entry.get("realtimePredicted"));
                         count.getAndIncrement();
                     }
                 });
@@ -154,9 +153,11 @@ public class MCTSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                 long lengthWithNoise;
 
                 if (count.get() != 0) {
-                    lengthWithNoise = (long) ((runtimeSum.get() / count.get()) * MetaGetter.getRandomFactor());
+                    lengthWithNoise = (long) ((runtimeSum.get() / count.get()));
+                } else if (count.get() > 1) {
+                    throw new RuntimeException("Why is count > 1? There should only be one prediction per specific task");
                 } else {
-                    lengthWithNoise = (long) (task.getCloudletLength() * MetaGetter.getRandomFactor());
+                    lengthWithNoise = (long) (task.getCloudletLength() / vm.getMips());
                 }
 
                 if (minTime > lengthWithNoise) {

@@ -6,9 +6,9 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,11 +20,13 @@ public class MetaGetter {
 
     private static Random random;
 
-    private static double error = 0.5;
+    private static double error = 0.0;
 
-    private static String workflow = "methylseq";
+    private static String workflow = null;
 
     private static String distribution = "normal";
+
+    private static String predictor = "Lotaru";
 
     private static ArrayList<Integer> seedStack = null;
 
@@ -107,7 +109,7 @@ public class MetaGetter {
 
     }
 
-    public static List<LinkedHashMap<String, Object>> getArr() {
+    public static List<LinkedHashMap<String, Object>> getArrReshiJson() {
         if (arr == null) {
 
             try {
@@ -122,12 +124,76 @@ public class MetaGetter {
         return arr;
     }
 
+    public static List<LinkedHashMap<String, Object>> getArrLotaruCSV() {
+        if (arr == null) {
+
+            String[] extensions = new String[1];
+            extensions[0] = "csv";
+
+            List<LinkedHashMap<String, Object>> listFromFiles = new ArrayList<>();
+
+            try {
+
+                Iterator it = FileUtils.iterateFiles(new File("src/main/resources/config/lotaru_runtimes"), extensions, true);
+
+
+                while (it.hasNext()) {
+
+                    File ff = (File) it.next();
+
+                    listFromFiles.addAll(copyFromCSVToArrayList(ff));
+                    try {
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                arr = listFromFiles.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).collect(Collectors.toList());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return arr;
+    }
+
 
     public static void resetGenerator() {
         listPointer = listPointeroffset + 0;
         randPointer = randPointerOffset + 0;
         random = new Random(seedStack.get(randPointer));
 
+    }
+
+    private static List<LinkedHashMap<String, Object>> copyFromCSVToArrayList(File file) throws IOException {
+
+        List<LinkedHashMap<String, Object>> arr = new ArrayList<>();
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        bufferedReader.readLine();
+        String s = null;
+
+        while ((s = bufferedReader.readLine()) != null) {
+
+            LinkedHashMap<String, Object> entry = new LinkedHashMap<>();
+
+            String[] csvEntries = s.split(",");
+
+            entry.put("wfName", csvEntries[0]);
+            entry.put("instanceType", file.getName().split("\\.")[0].split("_")[2]);
+            entry.put("realtime", csvEntries[6]);
+            entry.put("realtimePredicted", csvEntries[5]);
+            entry.put("taskName", csvEntries[1]);
+            entry.put("predictor", csvEntries[2]);
+            entry.put("taskInputSize", csvEntries[4]);
+
+            arr.add(entry);
+
+        }
+        bufferedReader.close();
+        return arr;
     }
 
     public static String getWorkflow() {
@@ -160,5 +226,13 @@ public class MetaGetter {
 
     public static void setRandPointerOffset(int randPointerOffset) {
         MetaGetter.randPointerOffset = randPointerOffset;
+    }
+
+    public static String getPredictor() {
+        return predictor;
+    }
+
+    public static void setPredictor(String predictor) {
+        MetaGetter.predictor = predictor;
     }
 }

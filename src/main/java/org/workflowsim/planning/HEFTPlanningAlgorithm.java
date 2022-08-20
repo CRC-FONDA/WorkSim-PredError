@@ -15,12 +15,12 @@
  */
 package org.workflowsim.planning;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
-import com.jayway.jsonpath.JsonPath;
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.util.Precision;
 import org.cloudbus.cloudsim.Consts;
 import org.cloudbus.cloudsim.Log;
 import org.workflowsim.CondorVM;
@@ -82,7 +82,7 @@ public class HEFTPlanningAlgorithm extends BasePlanningAlgorithm {
         earliestFinishTimes = new HashMap<>();
         schedules = new HashMap<>();
 
-        arr = MetaGetter.getArr();
+        arr = MetaGetter.getArrLotaruCSV();
 
     }
 
@@ -139,25 +139,34 @@ public class HEFTPlanningAlgorithm extends BasePlanningAlgorithm {
 
                     double task_runtime = 0;
 
-                    AtomicInteger runtimeSum = new AtomicInteger();
-                    AtomicInteger count = new AtomicInteger();
+
+                    AtomicReference<Double> predictedRuntime = new AtomicReference<>(-1.0);
+
                     arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
 
-                        if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                vm.getName().equals((String) entry.get("instanceType")) &&
-                                ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                            runtimeSum.addAndGet((Integer) entry.get("realtime"));
-                            count.getAndIncrement();
+                        if (task.getType().toLowerCase().contains(((String) entry.get("taskName")).toLowerCase()) &&
+                                vm.getName().equalsIgnoreCase((String) entry.get("instanceType")) &&
+                                ((String) entry.get("predictor")).equalsIgnoreCase(MetaGetter.getPredictor()) &&
+                                Precision.equals(Double.valueOf((String) entry.get("taskInputSize")),task.getInputSize())
+                        ) {
+                            predictedRuntime.set(Double.valueOf((String) entry.get("realtimePredicted")));
+                            // TODO richtige Anzahl der Reads
                         }
                     });
-                    if (count.get() != 0) {
-                        task_runtime = runtimeSum.get() / count.get();
-                        //task_runtime = task.getCloudletLength() / vm.getMips();
+
+                    // Irgendein Problem gibts hier noch, es wird was geprintet aber die Zeit wird nicht gesetzt, strange
+                    System.out.println(MetaGetter.getArrLotaruCSV().stream().filter(e -> task.getType().toLowerCase().contains(((String) e.get("taskName")).toLowerCase()) &&
+                            vm.getName().equalsIgnoreCase((String) e.get("instanceType")) &&
+                            ((String) e.get("predictor")).equalsIgnoreCase(MetaGetter.getPredictor())).collect(Collectors.toList()));
+                    // Es wird irgendwie kein Match gefunden
+                    if (predictedRuntime.get() != -1.0) {
+                        task_runtime = predictedRuntime.get();
+                        // FALSCHE LAUFZEIT MIT DEN PREDICTETEN WERTEN
                     } else {
                         task_runtime = task.getCloudletLength() / vm.getMips();
                     }
 
-                    double lengthWithNoise = (task_runtime * (MetaGetter.getRandomFactor()));
+                    double lengthWithNoise = task_runtime;
 
 
                     costsVm.put(vm,
@@ -302,7 +311,7 @@ public class HEFTPlanningAlgorithm extends BasePlanningAlgorithm {
             double minReadyTime = 0.0;
 
             for (Task parent : task.getParentList()) {
-                if(earliestFinishTimes.get(parent) == null) {
+                if (earliestFinishTimes.get(parent) == null) {
                     continue;
                 }
                 double readyTime = earliestFinishTimes.get(parent);

@@ -21,11 +21,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-import com.jayway.jsonpath.JsonPath;
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
 import org.cloudbus.cloudsim.DatacenterCharacteristics;
@@ -51,8 +48,6 @@ import org.workflowsim.utils.Parameters;
 import org.workflowsim.utils.ReplicaCatalog;
 import org.workflowsim.utils.Parameters.ClassType;
 
-import static org.workflowsim.MetaGetter.getArr;
-
 /**
  * This WorkflowSimExample creates a workflow planner, a workflow engine, and
  * one schedulers, one data centers and 20 vms. You should change daxPath at
@@ -74,7 +69,7 @@ public class WorkflowSimBasicExample1 {
 
 
         try {
-            dom = builder.build(new File("src/main/resources/config/machines/machines.xml"));
+            dom = builder.build(new File("src/main/resources/config/machines/machines_lotaru.xml"));
             Element root = dom.getRootElement();
             List<Element> availableVMs = root.getChildren().get(0).getChildren("host");
             List<String> list = availableVMs.stream().map(v -> v.getAttribute("id").getValue()).collect(Collectors.toList());
@@ -94,7 +89,7 @@ public class WorkflowSimBasicExample1 {
 
         Document dom;
         try {
-            dom = builder.build(new File("src/main/resources/config/machines/machines.xml"));
+            dom = builder.build(new File("src/main/resources/config/machines/machines_lotaru.xml"));
             Element root = dom.getRootElement();
             List<Element> availableVMs = root.getChildren().get(0).getChildren("host");
 
@@ -135,7 +130,7 @@ public class WorkflowSimBasicExample1 {
 
         Document dom;
         try {
-            dom = builder.build(new File("src/main/resources/config/machines/machines.xml"));
+            dom = builder.build(new File("src/main/resources/config/machines/machines_lotaru.xml"));
             Element root = dom.getRootElement();
             List<Element> availableVMs = root.getChildren().get(0).getChildren("host");
 
@@ -223,17 +218,26 @@ public class WorkflowSimBasicExample1 {
         // Mehr VMs auf einem Host
 
 
-        if (args.length == 3) {
+
+        // Hier weiter machen, haben gerade erfolgreich prediction und tatsächliche Werte geladen
+
+
+        if (args.length == 4) {
             MetaGetter.setWorkflow(args[0]);
             MetaGetter.setDistribution(args[1]);
             MetaGetter.setError(Double.parseDouble(args[2]));
+            MetaGetter.setPredictor(args[3]);
             System.out.println("Start");
         }
+
+        var test = MetaGetter.getArrLotaruCSV();
+
+        System.out.println(MetaGetter.getWorkflow());
 
         // prepareSimulations(MetaGetter.getArr(), 100, 4);
         //prepareSimulations(MetaGetter.getArr(), 100, 8);
         //prepareSimulations(MetaGetter.getArr(), 100, 12);
-        prepareSimulations(MetaGetter.getArr(), 200, 40);
+        prepareSimulations(test, 200, 20);
         //prepareSimulations(MetaGetter.getArr(), 100, 20);
         //prepareSimulations(MetaGetter.getArr(), 100, 24);
 
@@ -245,48 +249,41 @@ public class WorkflowSimBasicExample1 {
         BufferedWriter resultsWriter = new BufferedWriter(new FileWriter("results_" + numberIterations + "_" + clusterSize + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError() + "_" + MetaGetter.getWorkflow() + ".csv"));
 
 
-        resultsWriter.write("Workflow,Distribution,Error,NumberNodes,ClusterSeed,Scheduler,Runtime," + String.join(",", getAllVMNames()) + ",Nodes" + "\n");
+        resultsWriter.write("Workflow,Distribution,Error,NumberNodes,ClusterSeed,Scheduler,Runtime,Predictor," + String.join(",", getAllVMNames()) + ",Nodes" + "\n");
         Long millis_start = System.currentTimeMillis();
         // Fehler bei random Cluster
         for (long i = 0; i < numberIterations; i++) {
 
-            //seed file anders nennen, damit bei parallelen Ausführugen nicht überschrieben, bzw. oben in Threads auslagern aber dann muss der Seed anders vergeben werden
-            //BufferedWriter seedWriter = new BufferedWriter(new FileWriter("seed_" + MetaGetter.getWorkflow() + "_" + MetaGetter.getDistribution()+ "_" + MetaGetter.getError() + "_.txt"));
-            //seedWriter.write(randomSeed + "");
-            //seedWriter.flush();
-            //seedWriter.close();
 
+            MetaGetter.getRandomFactor();
 
-            runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV1, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV2, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV3, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.RESHIMAX, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.RESHIFCFS, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.MCT, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.ROUNDROBIN, arr, resultsWriter, clusterSize);
-            MetaGetter.setListPointeroffset((int) (1000 * (i + 1)));
-            MetaGetter.setRandPointerOffset((int) (1000 * (i + 1)));
-            MetaGetter.resetGenerator();
+            for (Predictor p : Predictor.values()) {
+                MetaGetter.setPredictor(p.name());
+                runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize, p);
+                MetaGetter.resetGenerator();
+                /*runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize, p);
+                MetaGetter.resetGenerator();
+                runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize, p);
+                MetaGetter.resetGenerator();
+                runSimulation(i, Parameters.SchedulingAlgorithm.MCT, arr, resultsWriter, clusterSize, p);
+                MetaGetter.resetGenerator();
+                runSimulation(i, Parameters.SchedulingAlgorithm.ROUNDROBIN, arr, resultsWriter, clusterSize, p);
+                 */
+                MetaGetter.setListPointeroffset((int) (1000 * (i + 1)));
+                MetaGetter.setRandPointerOffset((int) (1000 * (i + 1)));
+                MetaGetter.resetGenerator();
+            }
 
         }
         System.out.println("Runtime in millis:" + (System.currentTimeMillis() - millis_start) + " for " + MetaGetter.getWorkflow() + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError());
         resultsWriter.close();
     }
 
-    private static void runSimulation(Long seed, Parameters.SchedulingAlgorithm schedulingAlgorithm, List<LinkedHashMap<String, Object>> arr, BufferedWriter bufferedWriter, int totalNumberVms) {
+    private static void runSimulation(Long seed, Parameters.SchedulingAlgorithm schedulingAlgorithm, List<LinkedHashMap<String, Object>> arr, BufferedWriter bufferedWriter, int totalNumberVms, Predictor predictor) {
         try {
+
+            MetaGetter.setPredictor(predictor.toString());
+
             // First step: Initialize the WorkflowSim package.
             /**
              * However, the exact number of vms may nft necessarily be vmNum If
@@ -295,9 +292,9 @@ public class WorkflowSimBasicExample1 {
              */
             int vmNum = totalNumberVms;//number of vms;
             /**
-             * Should change this based on real physical path
+             * Should change this based on real physical path TODO wieder dynamisch wie zuvor
              */
-            String daxPath = "src/main/resources/config/dax/" + MetaGetter.getWorkflow() + ".xml";
+            String daxPath = "src/main/resources/config/dax/" + "lotaru_"+ MetaGetter.getWorkflow().split("-")[0].toLowerCase() + ".xml";
             File daxFile = new File(daxPath);
             if (!daxFile.exists()) {
                 Log.printLine("Warning: Please replace daxPath with the physical path in your working environment!");
@@ -478,7 +475,7 @@ public class WorkflowSimBasicExample1 {
         //String.join(",", map.values() + "");
 
         try {
-            bufferedWriter.write(MetaGetter.getWorkflow() + "," + MetaGetter.getDistribution() + "," + MetaGetter.getError() + "," + numberVM + "," + seed + "," + schedulingAlgorithm + "," + list.get(list.size() - 1).getFinishTime() + "," + String.join(",", map.values() + "").replace("[", "").replace("]", "") + "," + map.toString().replace(",", ";") + "\n");
+            bufferedWriter.write(MetaGetter.getWorkflow() + "," + MetaGetter.getDistribution() + "," + MetaGetter.getError() + "," + numberVM + "," + seed + "," + schedulingAlgorithm + "," + MetaGetter.getPredictor() + "," + list.get(list.size() - 1).getFinishTime() + "," + String.join(",", map.values() + "").replace("[", "").replace("]", "") + "," + map.toString().replace(",", ";") + "\n");
             bufferedWriter.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -513,15 +510,15 @@ public class WorkflowSimBasicExample1 {
 
             if (job.getCloudletStatus() == Cloudlet.SUCCESS) {
 
-                if(job.getTaskList().size() == 0) {
+                if (job.getTaskList().size() == 0) {
                     Log.print("SUCCESS");
-                    Log.printLine(indent + indent +  job.getResourceId() +")"+ indent + indent + indent + job.getVmId()
+                    Log.printLine(indent + indent + job.getResourceId() + ")" + indent + indent + indent + job.getVmId()
                             + indent + indent + indent + dft.format(job.getActualCPUTime())
                             + indent + indent + dft.format(job.getExecStartTime()) + indent + indent + indent
                             + dft.format(job.getFinishTime()) + indent + indent + indent + job.getDepth());
                 } else {
                     Log.print("SUCCESS");
-                    Log.printLine(indent + indent + job.getTaskList().get(0).getType() +"(" + job.getResourceId() +")"+ indent + indent + indent + job.getVmId()
+                    Log.printLine(indent + indent + job.getTaskList().get(0).getType() + "(" + job.getResourceId() + ")" + indent + indent + indent + job.getVmId()
                             + indent + indent + indent + dft.format(job.getActualCPUTime())
                             + indent + indent + dft.format(job.getExecStartTime()) + indent + indent + indent
                             + dft.format(job.getFinishTime()) + indent + indent + indent + job.getDepth());

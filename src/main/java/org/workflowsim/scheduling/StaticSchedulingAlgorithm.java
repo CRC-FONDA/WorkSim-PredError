@@ -72,11 +72,6 @@ public class StaticSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                 vm.setState(WorkflowSimTags.VM_STATUS_BUSY);
                 getScheduledList().add(cloudlet);
 
-                if(((Job) cloudlet).getTaskList().size() != 0) {
-                    Log.printLine("Schedules " + ((Job) cloudlet).getTaskList().get(0).getType() + " with "
-                            + cloudlet.getCloudletLength() + " to VM " + vm.getName() + "(" + vm.getId() + ")");
-                }
-
             }
         }
     }
