@@ -9,10 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
@@ -195,6 +192,7 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             this.rank = rank;
         }
 
+        // TODO: shouldn't we check if the two ReshiTasks target the same task?
         @Override
         public int compareTo(Object o) {
             if (this.rank > ((ReshiTask) o).rank) {
@@ -208,25 +206,46 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
     }
 
     // V2
+
+    /**
+     * perform BFS to get the number of descendants.
+     * @param job the starting task
+     * @return number of total descendants
+     */
     private int totalDescendants(Task job) {
-
-        int acc = job.getChildList().size();
-
-        for (Task t : job.getChildList()) {
-            acc = totalDescendants(t) + acc;
+        Queue<Task> queue = new LinkedList<>();
+        Map<Task,Boolean> tasks = new HashMap<>();
+        int count = 0;
+        for (Task t : job.getChildList()){
+            queue.add(t);
+            tasks.put(t,true);
         }
-
-        return acc;
+        while (!queue.isEmpty()){
+            Task e = queue.poll();
+            count++;
+            assert (tasks.containsKey(e));
+            for (Task child : e.getChildList()){
+                if (!tasks.containsKey(child)){
+                    tasks.put(child,true);
+                    queue.add(child);
+                }
+            }
+        }
+        return count;
     }
 
+    /**
+     * perform DFS to get the maximum depth of a task
+     * @param job the task to determine the depth of
+     * @param depth the starting depth (0 for the starting task)
+     * @return the depth of the task
+     */
     // V3
     private static int depthDescendants(Task job, int depth) {
-
+        int result = depth;
         for (Task t : job.getChildList()) {
-            return Math.max(depthDescendants(t, depth + 1), depth);
+            result = Math.max(depthDescendants(t, depth + 1), depth);
         }
-        return depth;
+        return result;
     }
-
-
 }

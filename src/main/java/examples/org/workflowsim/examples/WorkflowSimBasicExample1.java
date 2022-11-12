@@ -233,7 +233,7 @@ public class WorkflowSimBasicExample1 {
         // prepareSimulations(MetaGetter.getArr(), 100, 4);
         //prepareSimulations(MetaGetter.getArr(), 100, 8);
         //prepareSimulations(MetaGetter.getArr(), 100, 12);
-        prepareSimulations(MetaGetter.getArr(), 200, 40);
+        prepareSimulations(MetaGetter.getArr(), 50, 30);
         //prepareSimulations(MetaGetter.getArr(), 100, 20);
         //prepareSimulations(MetaGetter.getArr(), 100, 24);
 
@@ -256,9 +256,22 @@ public class WorkflowSimBasicExample1 {
             //seedWriter.flush();
             //seedWriter.close();
 
+            /* non-ML scheduling/planning algorithms.
 
+            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.MCT, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.ROUNDROBIN, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
+            */
+
+
+
             runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV1, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV2, arr, resultsWriter, clusterSize);
@@ -269,16 +282,9 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.RESHIFCFS, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.MCT, arr, resultsWriter, clusterSize);
-            MetaGetter.resetGenerator();
-            runSimulation(i, Parameters.SchedulingAlgorithm.ROUNDROBIN, arr, resultsWriter, clusterSize);
+
             MetaGetter.setListPointeroffset((int) (1000 * (i + 1)));
             MetaGetter.setRandPointerOffset((int) (1000 * (i + 1)));
-            MetaGetter.resetGenerator();
 
         }
         System.out.println("Runtime in millis:" + (System.currentTimeMillis() - millis_start) + " for " + MetaGetter.getWorkflow() + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError());
