@@ -3,7 +3,11 @@ package org.workflowsim.scheduling;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.Pair;
 import org.workflowsim.*;
+import org.workflowsim.utils.BenchmarkSet;
+import org.workflowsim.utils.ReshiTask;
+import org.workflowsim.utils.ReshiTaskCostFunction;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
@@ -42,6 +47,8 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
 
     }
+
+
 
 
     @Override
@@ -129,7 +136,7 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                 break;
             }
 
-            String nodeToSchedule = determineBestMachine(task, freeVMs).node;
+            String nodeToSchedule = determineBestMachine(task, freeVMs).get_machine_name();
 
             CondorVM vmToAssign = freeVMs.stream().filter(vm -> vm.getName().equals(nodeToSchedule)).findFirst().get();
 
@@ -142,22 +149,22 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             getScheduledList().add(task);
 
         }
-
     }
+
 
 
     private ReshiTask determineBestMachine(Job taskToLookup, List<CondorVM> freeVMs) {
 
         // Für den initialen Task, welcher die Files fetcht wird random eine Node ausgewählt
         if (taskToLookup.getTaskList().size() == 0) {
-            List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.node))
+            List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                     .collect(Collectors.toList());
             //Collections.shuffle(filteredList);
             return filteredList.get(0);
         }
         // Ranking nach dem Task filtern und sortieren
-        List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.taskName)) || (t.taskName.contains(taskToLookup.getTaskList().get(0).getType())))
-                .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.node))
+        List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.get_task_name())) || (t.get_task_name().contains(taskToLookup.getTaskList().get(0).getType())))
+                .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                 .collect(Collectors.toList());
 
         // falls der Task nicht gerankt wurde sollte lieber die schnellste node genommen werden
@@ -165,7 +172,7 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
             System.out.println("No ranking for:" + taskToLookup.getTaskList().get(0).getType());
 
-            List<ReshiTask> list = reshiTaskList.stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.node))
+            List<ReshiTask> list = reshiTaskList.stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                     .collect(Collectors.toList());
             // Collections.shuffle(list);
             return list.get(0);
@@ -174,36 +181,38 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
         System.out.println("ranking found for:" + taskToLookup.getTaskList().get(0).getType());
 
         Collections.sort(filteredList);
+        // todo: here we need to use different allocation heuristics
         return filteredList.get(0);
     }
 
-
-    private class ReshiTask implements Comparable {
-
-        String workflow;
-        String taskName;
-        String node;
-        Double rank;
-
-        public ReshiTask(String taskName, String workflow, String node, Double rank) {
-            this.workflow = workflow;
-            this.taskName = taskName;
-            this.node = node;
-            this.rank = rank;
-        }
-
-        // TODO: shouldn't we check if the two ReshiTasks target the same task?
-        @Override
-        public int compareTo(Object o) {
-            if (this.rank > ((ReshiTask) o).rank) {
-                return 1;
-            } else if (this.rank < ((ReshiTask) o).rank) {
-                return -1;
-            } else {
-                return 0;
+    /**
+     * selects the ReshiTask object with the lowest cost according to a cost function.
+     * @param filteredList the list of ReshiTasks to choose from.
+     * @param cost_func the cost function of choice.
+     * @return the ReshiTask object with the lowest cost.
+     */
+    public ReshiTask select_lowest_cost(List<ReshiTask> filteredList, ReshiTaskCostFunction cost_func){
+        // we can set lowest_rank to 1.0 since we assume the reg. tree ranks nodes in integers
+        double lowest_rank = 1.0;
+        Iterator<ReshiTask> it = filteredList.listIterator();
+        ReshiTask res = null;
+        double cost = Double.MAX_VALUE;
+        while (it.hasNext()){
+            ReshiTask current = it.next();
+            if (current.get_rank() > lowest_rank){
+                break;
+            }
+            Pair<BenchmarkSet, BenchmarkSet> s1_s2 = BenchmarkSet.distill_benchmarks(current);
+            double current_value = cost_func.compare(s1_s2.getFirst(), s1_s2.getSecond());
+            if (current_value < cost) {
+                cost = current_value;
+                res = current;
             }
         }
+        assert (res != null);
+        return res;
     }
+
 
     // V2
 
