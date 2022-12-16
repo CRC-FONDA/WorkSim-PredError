@@ -175,6 +175,8 @@ public class Parameters {
      * The default cost model is based on datacenter, similar to CloudSim
      */
     private static CostModel costModel = CostModel.DATACENTER;
+
+    private static final String csv_path = "/home/david/Developement/Java/WorkSim-PredError/src/main/resources/config/tested_runtimes/";
     
     /**
      * A static function so that you can specify them in any place
@@ -253,6 +255,14 @@ public class Parameters {
      */
     public static OverheadParameters getOverheadParams() {
         return oParams;
+    }
+
+    /**
+     * returns the path to the local tested_runtimes directory.
+     * @return the full path
+     */
+    public static String get_csv_path(){
+        return csv_path;
     }
 
     

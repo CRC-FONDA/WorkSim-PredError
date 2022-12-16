@@ -1,0 +1,784 @@
+id,nodeConfig,benchmarkedComponent,benchmarkType,result,benchmarkName,units,score
+784,165,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+785,165,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+786,165,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+787,165,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+788,165,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+789,165,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+790,165,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+791,165,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+792,165,ram,Type: Add - Benchmark: Integer,13441.88,ramspeed,MB/s,13441.88
+793,165,ram,Type: Copy - Benchmark: Integer,13001.17,ramspeed,MB/s,13001.17
+794,165,ram,Type: Scale - Benchmark: Integer,12947.36,ramspeed,MB/s,12947.36
+795,165,ram,Type: Triad - Benchmark: Integer,13234.21,ramspeed,MB/s,13234.21
+796,165,ram,Type: Average - Benchmark: Integer,13227.92,ramspeed,MB/s,13227.92
+797,165,ram,Type: Add - Benchmark: Floating Point,13300.31,ramspeed,MB/s,13300.31
+798,165,ram,Type: Copy - Benchmark: Floating Point,13481.26,ramspeed,MB/s,13481.26
+799,165,ram,Type: Scale - Benchmark: Floating Point,12988.48,ramspeed,MB/s,12988.48
+800,165,ram,Type: Triad - Benchmark: Floating Point,13441.36,ramspeed,MB/s,13441.36
+801,165,ram,Type: Average - Benchmark: Floating Point,13410.79,ramspeed,MB/s,13410.79
+802,165,internet,Test: TCP - Parallel: 1,497,iperf,Mbits/sec,497
+803,165,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+804,165,internet,Test: TCP - Parallel: 32,135,iperf,Mbits/sec,135
+805,165,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+806,165,cpu,Test: Blowfish,1450,john-the-ripper,Real C/S,1450
+807,165,cpu,Test: MD5,147114,john-the-ripper,Real C/S,147114
+808,165,cpu,Time To Compile,912.715,build-linux-kernel,Seconds,302.702
+809,165,ram,Type: Copy,11879.8,stream,MB/s,11879.8
+810,165,ram,Type: Scale,12849.3,stream,MB/s,12849.3
+811,165,ram,Type: Triad,13658.6,stream,MB/s,13658.6
+812,165,ram,Type: Add,13577.4,stream,MB/s,13577.4
+813,166,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+814,166,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+815,166,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+816,166,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+817,166,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+818,166,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+819,166,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+820,166,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+821,166,ram,Type: Add - Benchmark: Integer,26518.16,ramspeed,MB/s,26518.16
+822,166,ram,Type: Copy - Benchmark: Integer,24909.38,ramspeed,MB/s,24909.38
+823,166,ram,Type: Scale - Benchmark: Integer,20600.3,ramspeed,MB/s,20600.3
+824,166,ram,Type: Triad - Benchmark: Integer,25522.25,ramspeed,MB/s,25522.25
+825,166,ram,Type: Average - Benchmark: Integer,24458.92,ramspeed,MB/s,24458.92
+826,166,ram,Type: Add - Benchmark: Floating Point,22175.07,ramspeed,MB/s,22175.07
+827,166,ram,Type: Copy - Benchmark: Floating Point,24999.66,ramspeed,MB/s,24999.66
+828,166,ram,Type: Scale - Benchmark: Floating Point,18783,ramspeed,MB/s,18783
+829,166,ram,Type: Triad - Benchmark: Floating Point,25677.35,ramspeed,MB/s,25677.35
+830,166,ram,Type: Average - Benchmark: Floating Point,22667.18,ramspeed,MB/s,22667.18
+831,166,internet,Test: TCP - Parallel: 1,464.2,iperf,Mbits/sec,464.2
+832,166,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+833,166,internet,Test: TCP - Parallel: 32,56.5,iperf,Mbits/sec,56.5
+834,166,internet,Test: UDP - Parallel: 32,24.4,iperf,Mbits/sec,24.4
+835,166,cpu,Test: Blowfish,2877,john-the-ripper,Real C/S,2877
+836,166,cpu,Test: MD5,287411,john-the-ripper,Real C/S,287411
+837,166,cpu,Time To Compile,462.423,build-linux-kernel,Seconds,752.994
+838,166,ram,Type: Copy,22287,stream,MB/s,22287
+839,166,ram,Type: Scale,27189.4,stream,MB/s,27189.4
+840,166,ram,Type: Triad,27874,stream,MB/s,27874
+841,166,ram,Type: Add,28028.8,stream,MB/s,28028.8
+842,167,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+843,167,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+844,167,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+845,167,memory,Type: Random Write - Block Size: 4KB,2996,fio,IOPS,2996
+846,167,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+847,167,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+848,167,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+849,167,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+850,167,ram,Type: Add - Benchmark: Integer,27098.23,ramspeed,MB/s,27098.23
+851,167,ram,Type: Copy - Benchmark: Integer,26004.74,ramspeed,MB/s,26004.74
+852,167,ram,Type: Scale - Benchmark: Integer,20702.38,ramspeed,MB/s,20702.38
+853,167,ram,Type: Triad - Benchmark: Integer,26279.63,ramspeed,MB/s,26279.63
+854,167,ram,Type: Average - Benchmark: Integer,25235.34,ramspeed,MB/s,25235.34
+855,167,ram,Type: Add - Benchmark: Floating Point,22581.15,ramspeed,MB/s,22581.15
+856,167,ram,Type: Copy - Benchmark: Floating Point,25792.94,ramspeed,MB/s,25792.94
+857,167,ram,Type: Scale - Benchmark: Floating Point,19331.96,ramspeed,MB/s,19331.96
+858,167,ram,Type: Triad - Benchmark: Floating Point,25441.82,ramspeed,MB/s,25441.82
+859,167,ram,Type: Average - Benchmark: Floating Point,23208.38,ramspeed,MB/s,23208.38
+860,167,internet,Test: TCP - Parallel: 1,479,iperf,Mbits/sec,479
+861,167,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+862,167,internet,Test: TCP - Parallel: 32,68.7,iperf,Mbits/sec,68.7
+863,167,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+864,167,cpu,Test: Blowfish,5794,john-the-ripper,Real C/S,5794
+865,167,cpu,Test: MD5,583424,john-the-ripper,Real C/S,583424
+866,167,cpu,Time To Compile,242.05,build-linux-kernel,Seconds,973.367
+867,167,ram,Type: Copy,42568.4,stream,MB/s,42568.4
+868,167,ram,Type: Scale,48371.1,stream,MB/s,48371.1
+869,167,ram,Type: Triad,51294.5,stream,MB/s,51294.5
+870,167,ram,Type: Add,51583.5,stream,MB/s,51583.5
+871,168,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+872,168,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+873,168,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+874,168,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+875,168,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+876,168,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+877,168,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+878,168,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+879,168,ram,Type: Add - Benchmark: Integer,18886.01,ramspeed,MB/s,18886.01
+880,168,ram,Type: Copy - Benchmark: Integer,17254.48,ramspeed,MB/s,17254.48
+881,168,ram,Type: Scale - Benchmark: Integer,15643.62,ramspeed,MB/s,15643.62
+882,168,ram,Type: Triad - Benchmark: Integer,15484.65,ramspeed,MB/s,15484.65
+883,168,ram,Type: Average - Benchmark: Integer,16530.9,ramspeed,MB/s,16530.9
+884,168,ram,Type: Add - Benchmark: Floating Point,18744.08,ramspeed,MB/s,18744.08
+885,168,ram,Type: Copy - Benchmark: Floating Point,17017.49,ramspeed,MB/s,17017.49
+886,168,ram,Type: Scale - Benchmark: Floating Point,15250.99,ramspeed,MB/s,15250.99
+887,168,ram,Type: Triad - Benchmark: Floating Point,18055.96,ramspeed,MB/s,18055.96
+888,168,ram,Type: Average - Benchmark: Floating Point,17245.82,ramspeed,MB/s,17245.82
+889,168,internet,Test: TCP - Parallel: 1,56.4,iperf,Mbits/sec,56.4
+890,168,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+891,168,internet,Test: TCP - Parallel: 32,134,iperf,Mbits/sec,134
+892,168,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+893,168,cpu,Test: Blowfish,1439,john-the-ripper,Real C/S,1439
+894,168,cpu,Test: MD5,47546,john-the-ripper,Real C/S,47546
+895,168,cpu,Time To Compile,1185.445,build-linux-kernel,Seconds,29.972
+896,168,ram,Type: Copy,17178.4,stream,MB/s,17178.4
+897,168,ram,Type: Scale,17403.2,stream,MB/s,17403.2
+898,168,ram,Type: Triad,17654.8,stream,MB/s,17654.8
+899,168,ram,Type: Add,17709.7,stream,MB/s,17709.7
+900,169,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+901,169,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+902,169,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+903,169,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+904,169,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+905,169,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+906,169,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+907,169,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+908,169,ram,Type: Add - Benchmark: Integer,21770.87,ramspeed,MB/s,21770.87
+909,169,ram,Type: Copy - Benchmark: Integer,19516.51,ramspeed,MB/s,19516.51
+910,169,ram,Type: Scale - Benchmark: Integer,18148.92,ramspeed,MB/s,18148.92
+911,169,ram,Type: Triad - Benchmark: Integer,18694.22,ramspeed,MB/s,18694.22
+912,169,ram,Type: Average - Benchmark: Integer,19602.02,ramspeed,MB/s,19602.02
+913,169,ram,Type: Add - Benchmark: Floating Point,21826.11,ramspeed,MB/s,21826.11
+914,169,ram,Type: Copy - Benchmark: Floating Point,19412.27,ramspeed,MB/s,19412.27
+915,169,ram,Type: Scale - Benchmark: Floating Point,18246.82,ramspeed,MB/s,18246.82
+916,169,ram,Type: Triad - Benchmark: Floating Point,21612.96,ramspeed,MB/s,21612.96
+917,169,ram,Type: Average - Benchmark: Floating Point,20280.51,ramspeed,MB/s,20280.51
+918,169,internet,Test: TCP - Parallel: 1,60.2,iperf,Mbits/sec,60.2
+919,169,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+920,169,internet,Test: TCP - Parallel: 32,113.8,iperf,Mbits/sec,113.8
+921,169,internet,Test: UDP - Parallel: 32,33.1,iperf,Mbits/sec,33.1
+922,169,cpu,Test: Blowfish,2833,john-the-ripper,Real C/S,2833
+923,169,cpu,Test: MD5,95099,john-the-ripper,Real C/S,95099
+924,169,cpu,Time To Compile,599.895,build-linux-kernel,Seconds,615.522
+925,169,ram,Type: Copy,17986.4,stream,MB/s,17986.4
+926,169,ram,Type: Scale,17698.6,stream,MB/s,17698.6
+927,169,ram,Type: Triad,19445.5,stream,MB/s,19445.5
+928,169,ram,Type: Add,19403.2,stream,MB/s,19403.2
+929,170,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+930,170,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+931,170,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+932,170,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+933,170,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+934,170,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+935,170,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+936,170,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+937,170,ram,Type: Add - Benchmark: Integer,21712.87,ramspeed,MB/s,21712.87
+938,170,ram,Type: Copy - Benchmark: Integer,19307.69,ramspeed,MB/s,19307.69
+939,170,ram,Type: Scale - Benchmark: Integer,18196.08,ramspeed,MB/s,18196.08
+940,170,ram,Type: Triad - Benchmark: Integer,18265.77,ramspeed,MB/s,18265.77
+941,170,ram,Type: Average - Benchmark: Integer,19306.72,ramspeed,MB/s,19306.72
+942,170,ram,Type: Add - Benchmark: Floating Point,21616.61,ramspeed,MB/s,21616.61
+943,170,ram,Type: Copy - Benchmark: Floating Point,19309.4,ramspeed,MB/s,19309.4
+944,170,ram,Type: Scale - Benchmark: Floating Point,18158.94,ramspeed,MB/s,18158.94
+945,170,ram,Type: Triad - Benchmark: Floating Point,21320.81,ramspeed,MB/s,21320.81
+946,170,ram,Type: Average - Benchmark: Floating Point,19979,ramspeed,MB/s,19979
+947,170,internet,Test: TCP - Parallel: 1,14.36,iperf,Mbits/sec,14.36
+948,170,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+949,170,internet,Test: TCP - Parallel: 32,101.9,iperf,Mbits/sec,101.9
+950,170,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+951,170,cpu,Test: Blowfish,5835,john-the-ripper,Real C/S,5835
+952,170,cpu,Test: MD5,190434,john-the-ripper,Real C/S,190434
+953,170,cpu,Time To Compile,317.947,build-linux-kernel,Seconds,897.47
+954,170,ram,Type: Copy,20130,stream,MB/s,20130
+955,170,ram,Type: Scale,19900.6,stream,MB/s,19900.6
+956,170,ram,Type: Triad,21917.5,stream,MB/s,21917.5
+957,170,ram,Type: Add,21909.2,stream,MB/s,21909.2
+958,171,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+959,171,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+960,171,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+961,171,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+962,171,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+963,171,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+964,171,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+965,171,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+966,171,ram,Type: Add - Benchmark: Integer,15425.29,ramspeed,MB/s,15425.29
+967,171,ram,Type: Copy - Benchmark: Integer,15104.14,ramspeed,MB/s,15104.14
+968,171,ram,Type: Scale - Benchmark: Integer,15041.13,ramspeed,MB/s,15041.13
+969,171,ram,Type: Triad - Benchmark: Integer,15138.97,ramspeed,MB/s,15138.97
+970,171,ram,Type: Average - Benchmark: Integer,15195.53,ramspeed,MB/s,15195.53
+971,171,ram,Type: Add - Benchmark: Floating Point,15280.13,ramspeed,MB/s,15280.13
+972,171,ram,Type: Copy - Benchmark: Floating Point,15110.24,ramspeed,MB/s,15110.24
+973,171,ram,Type: Scale - Benchmark: Floating Point,14979.24,ramspeed,MB/s,14979.24
+974,171,ram,Type: Triad - Benchmark: Floating Point,15213.84,ramspeed,MB/s,15213.84
+975,171,ram,Type: Average - Benchmark: Floating Point,15158.01,ramspeed,MB/s,15158.01
+976,171,ram,Type: Copy,12281.5,stream,MB/s,12281.5
+977,171,ram,Type: Scale,13579.4,stream,MB/s,13579.4
+978,171,ram,Type: Triad,14143.3,stream,MB/s,14143.3
+979,171,ram,Type: Add,14147.9,stream,MB/s,14147.9
+980,171,internet,Test: TCP - Parallel: 1,303,iperf,Mbits/sec,303
+981,171,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+982,171,internet,Test: TCP - Parallel: 32,134,iperf,Mbits/sec,134
+983,171,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+984,171,cpu,Test: Blowfish,2109,john-the-ripper,Real C/S,2109
+985,171,cpu,Test: MD5,207503,john-the-ripper,Real C/S,207503
+986,171,cpu,Time To Compile,646.341,build-linux-kernel,Seconds,569.076
+987,172,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+988,172,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+989,172,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+990,172,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+991,172,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+992,172,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+993,172,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+994,172,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+995,172,ram,Type: Add - Benchmark: Integer,28048.32,ramspeed,MB/s,28048.32
+996,172,ram,Type: Copy - Benchmark: Integer,26447.18,ramspeed,MB/s,26447.18
+997,172,ram,Type: Scale - Benchmark: Integer,21458.45,ramspeed,MB/s,21458.45
+998,172,ram,Type: Triad - Benchmark: Integer,27338.05,ramspeed,MB/s,27338.05
+999,172,ram,Type: Average - Benchmark: Integer,25884.12,ramspeed,MB/s,25884.12
+1000,172,ram,Type: Add - Benchmark: Floating Point,23788.98,ramspeed,MB/s,23788.98
+1001,172,ram,Type: Copy - Benchmark: Floating Point,26544.16,ramspeed,MB/s,26544.16
+1002,172,ram,Type: Scale - Benchmark: Floating Point,20050.61,ramspeed,MB/s,20050.61
+1003,172,ram,Type: Triad - Benchmark: Floating Point,27573.27,ramspeed,MB/s,27573.27
+1004,172,ram,Type: Average - Benchmark: Floating Point,24461.83,ramspeed,MB/s,24461.83
+1005,172,ram,Type: Copy,24463.1,stream,MB/s,24463.1
+1006,172,ram,Type: Scale,26882.4,stream,MB/s,26882.4
+1007,172,ram,Type: Triad,27718.9,stream,MB/s,27718.9
+1008,172,ram,Type: Add,27750.8,stream,MB/s,27750.8
+1009,172,internet,Test: TCP - Parallel: 1,411.4,iperf,Mbits/sec,411.4
+1010,172,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1011,172,internet,Test: TCP - Parallel: 32,97.3,iperf,Mbits/sec,97.3
+1012,172,internet,Test: UDP - Parallel: 32,33.3,iperf,Mbits/sec,33.3
+1013,172,cpu,Test: Blowfish,4204,john-the-ripper,Real C/S,4204
+1014,172,cpu,Test: MD5,409605,john-the-ripper,Real C/S,409605
+1015,172,cpu,Time To Compile,335.001,build-linux-kernel,Seconds,880.416
+1016,173,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1017,173,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+1018,173,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1019,173,memory,Type: Random Write - Block Size: 4KB,2996,fio,IOPS,2996
+1020,173,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1021,173,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1022,173,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1023,173,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1024,173,ram,Type: Add - Benchmark: Integer,27011.98,ramspeed,MB/s,27011.98
+1025,173,ram,Type: Copy - Benchmark: Integer,25477.48,ramspeed,MB/s,25477.48
+1026,173,ram,Type: Scale - Benchmark: Integer,20655.6,ramspeed,MB/s,20655.6
+1027,173,ram,Type: Triad - Benchmark: Integer,26253.32,ramspeed,MB/s,26253.32
+1028,173,ram,Type: Average - Benchmark: Integer,24860.09,ramspeed,MB/s,24860.09
+1029,173,ram,Type: Add - Benchmark: Floating Point,22990.84,ramspeed,MB/s,22990.84
+1030,173,ram,Type: Copy - Benchmark: Floating Point,25494.13,ramspeed,MB/s,25494.13
+1031,173,ram,Type: Scale - Benchmark: Floating Point,19411.64,ramspeed,MB/s,19411.64
+1032,173,ram,Type: Triad - Benchmark: Floating Point,26858.08,ramspeed,MB/s,26858.08
+1033,173,ram,Type: Average - Benchmark: Floating Point,23650.76,ramspeed,MB/s,23650.76
+1034,173,ram,Type: Copy,47488.4,stream,MB/s,47488.4
+1035,173,ram,Type: Scale,47902,stream,MB/s,47902
+1036,173,ram,Type: Triad,50250.7,stream,MB/s,50250.7
+1037,173,ram,Type: Add,50182.1,stream,MB/s,50182.1
+1038,173,internet,Test: TCP - Parallel: 1,262.4,iperf,Mbits/sec,262.4
+1039,173,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1040,173,internet,Test: TCP - Parallel: 32,48.5,iperf,Mbits/sec,48.5
+1041,173,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1042,173,cpu,Test: Blowfish,8406,john-the-ripper,Real C/S,8406
+1043,173,cpu,Test: MD5,819200,john-the-ripper,Real C/S,819200
+1044,173,cpu,Time To Compile,175.648,build-linux-kernel,Seconds,1039.769
+1045,175,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1046,175,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+1047,175,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1048,175,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1049,175,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1050,175,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1051,175,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1052,175,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1053,175,ram,Type: Add - Benchmark: Integer,26409.61,ramspeed,MB/s,26409.61
+1054,175,ram,Type: Copy - Benchmark: Integer,24717.67,ramspeed,MB/s,24717.67
+1055,175,ram,Type: Scale - Benchmark: Integer,20851.53,ramspeed,MB/s,20851.53
+1056,175,ram,Type: Triad - Benchmark: Integer,26065.85,ramspeed,MB/s,26065.85
+1057,175,ram,Type: Average - Benchmark: Integer,24531.18,ramspeed,MB/s,24531.18
+1058,175,ram,Type: Add - Benchmark: Floating Point,22716.61,ramspeed,MB/s,22716.61
+1059,175,ram,Type: Copy - Benchmark: Floating Point,24679.94,ramspeed,MB/s,24679.94
+1060,175,ram,Type: Scale - Benchmark: Floating Point,19051.88,ramspeed,MB/s,19051.88
+1061,175,ram,Type: Triad - Benchmark: Floating Point,26271.01,ramspeed,MB/s,26271.01
+1062,175,ram,Type: Average - Benchmark: Floating Point,23167.63,ramspeed,MB/s,23167.63
+1063,175,ram,Type: Copy,23185.6,stream,MB/s,23185.6
+1064,175,ram,Type: Scale,25512.3,stream,MB/s,25512.3
+1065,175,ram,Type: Triad,26293.6,stream,MB/s,26293.6
+1066,175,ram,Type: Add,26293.3,stream,MB/s,26293.3
+1067,175,internet,Test: TCP - Parallel: 1,55.39,iperf,Mbits/sec,55.39
+1068,175,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1069,175,internet,Test: TCP - Parallel: 32,61.8,iperf,Mbits/sec,61.8
+1070,175,internet,Test: UDP - Parallel: 32,25.8,iperf,Mbits/sec,25.8
+1071,175,cpu,Test: Blowfish,3171,john-the-ripper,Real C/S,3171
+1072,175,cpu,Test: MD5,355609,john-the-ripper,Real C/S,355609
+1073,175,cpu,Time To Compile,431.348,build-linux-kernel,Seconds,784.069
+1074,176,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1075,176,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+1076,176,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1077,176,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1078,176,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1079,176,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1080,176,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1081,176,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1082,176,ram,Type: Add - Benchmark: Integer,25754.97,ramspeed,MB/s,25754.97
+1083,176,ram,Type: Copy - Benchmark: Integer,23771.78,ramspeed,MB/s,23771.78
+1084,176,ram,Type: Scale - Benchmark: Integer,20390.81,ramspeed,MB/s,20390.81
+1085,176,ram,Type: Triad - Benchmark: Integer,25923.67,ramspeed,MB/s,25923.67
+1086,176,ram,Type: Average - Benchmark: Integer,24031.19,ramspeed,MB/s,24031.19
+1087,176,ram,Type: Add - Benchmark: Floating Point,22347.65,ramspeed,MB/s,22347.65
+1088,176,ram,Type: Copy - Benchmark: Floating Point,24265.84,ramspeed,MB/s,24265.84
+1089,176,ram,Type: Scale - Benchmark: Floating Point,18865.35,ramspeed,MB/s,18865.35
+1090,176,ram,Type: Triad - Benchmark: Floating Point,26135.96,ramspeed,MB/s,26135.96
+1091,176,ram,Type: Average - Benchmark: Floating Point,23165.36,ramspeed,MB/s,23165.36
+1092,176,ram,Type: Copy,45967.5,stream,MB/s,45967.5
+1093,176,ram,Type: Scale,47159.4,stream,MB/s,47159.4
+1094,176,ram,Type: Triad,49238.1,stream,MB/s,49238.1
+1095,176,ram,Type: Add,49226.8,stream,MB/s,49226.8
+1096,176,internet,Test: TCP - Parallel: 1,263,iperf,Mbits/sec,263
+1097,176,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1098,176,internet,Test: TCP - Parallel: 32,100.1,iperf,Mbits/sec,100.1
+1099,176,internet,Test: UDP - Parallel: 32,33.6,iperf,Mbits/sec,33.6
+1100,176,cpu,Test: Blowfish,6338,john-the-ripper,Real C/S,6338
+1101,176,cpu,Test: MD5,710895,john-the-ripper,Real C/S,710895
+1102,176,cpu,Time To Compile,221.715,build-linux-kernel,Seconds,993.702
+1103,178,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1104,178,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+1105,178,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1106,178,memory,Type: Random Write - Block Size: 4KB,2996,fio,IOPS,2996
+1107,178,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1108,178,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1109,178,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1110,178,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1111,178,ram,Type: Add - Benchmark: Integer,33539.53,ramspeed,MB/s,33539.53
+1112,178,ram,Type: Copy - Benchmark: Integer,30849.41,ramspeed,MB/s,30849.41
+1113,178,ram,Type: Scale - Benchmark: Integer,31057.68,ramspeed,MB/s,31057.68
+1114,178,ram,Type: Triad - Benchmark: Integer,33585.92,ramspeed,MB/s,33585.92
+1115,178,ram,Type: Average - Benchmark: Integer,32269.12,ramspeed,MB/s,32269.12
+1116,178,ram,Type: Add - Benchmark: Floating Point,33525.61,ramspeed,MB/s,33525.61
+1117,178,ram,Type: Copy - Benchmark: Floating Point,30786.53,ramspeed,MB/s,30786.53
+1118,178,ram,Type: Scale - Benchmark: Floating Point,30692.79,ramspeed,MB/s,30692.79
+1119,178,ram,Type: Triad - Benchmark: Floating Point,33433.17,ramspeed,MB/s,33433.17
+1120,178,ram,Type: Average - Benchmark: Floating Point,32109.67,ramspeed,MB/s,32109.67
+1121,178,ram,Type: Copy,44119.6,stream,MB/s,44119.6
+1122,178,ram,Type: Scale,32229.1,stream,MB/s,32229.1
+1123,178,ram,Type: Triad,34287,stream,MB/s,34287
+1124,178,ram,Type: Add,34247.2,stream,MB/s,34247.2
+1125,178,internet,Test: TCP - Parallel: 1,990,iperf,Mbits/sec,990
+1126,178,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1127,178,internet,Test: TCP - Parallel: 32,943,iperf,Mbits/sec,943
+1128,178,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1129,178,cpu,Test: Blowfish,2770,john-the-ripper,Real C/S,2770
+1130,178,cpu,Test: MD5,197486,john-the-ripper,Real C/S,197486
+1131,178,cpu,Time To Compile,407.267,build-linux-kernel,Seconds,808.15
+1132,179,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1133,179,memory,Type: Random Read - Block Size: 4KB,2995,fio,IOPS,2995
+1134,179,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1135,179,memory,Type: Random Write - Block Size: 4KB,2998,fio,IOPS,2998
+1136,179,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1137,179,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1138,179,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1139,179,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1140,179,ram,Type: Add - Benchmark: Integer,33073.4,ramspeed,MB/s,33073.4
+1141,179,ram,Type: Copy - Benchmark: Integer,30492.75,ramspeed,MB/s,30492.75
+1142,179,ram,Type: Scale - Benchmark: Integer,30886.8,ramspeed,MB/s,30886.8
+1143,179,ram,Type: Triad - Benchmark: Integer,33853.48,ramspeed,MB/s,33853.48
+1144,179,ram,Type: Average - Benchmark: Integer,32511.96,ramspeed,MB/s,32511.96
+1145,179,ram,Type: Add - Benchmark: Floating Point,33687.14,ramspeed,MB/s,33687.14
+1146,179,ram,Type: Copy - Benchmark: Floating Point,31049.5,ramspeed,MB/s,31049.5
+1147,179,ram,Type: Scale - Benchmark: Floating Point,31054.91,ramspeed,MB/s,31054.91
+1148,179,ram,Type: Triad - Benchmark: Floating Point,33774.97,ramspeed,MB/s,33774.97
+1149,179,ram,Type: Average - Benchmark: Floating Point,32369.73,ramspeed,MB/s,32369.73
+1150,179,ram,Type: Copy,44830.5,stream,MB/s,44830.5
+1151,179,ram,Type: Scale,31892.5,stream,MB/s,31892.5
+1152,179,ram,Type: Triad,33821.7,stream,MB/s,33821.7
+1153,179,ram,Type: Add,33823.7,stream,MB/s,33823.7
+1154,179,internet,Test: TCP - Parallel: 1,914,iperf,Mbits/sec,914
+1155,179,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1156,179,internet,Test: TCP - Parallel: 32,708,iperf,Mbits/sec,708
+1157,179,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1158,179,cpu,Test: Blowfish,5579,john-the-ripper,Real C/S,5579
+1159,179,cpu,Test: MD5,395425,john-the-ripper,Real C/S,395425
+1160,179,cpu,Time To Compile,207.309,build-linux-kernel,Seconds,1008.108
+1161,180,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1162,180,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+1163,180,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1164,180,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1165,180,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1166,180,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1167,180,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1168,180,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1169,180,ram,Type: Add - Benchmark: Integer,13917.94,ramspeed,MB/s,13917.94
+1170,180,ram,Type: Copy - Benchmark: Integer,13461.6,ramspeed,MB/s,13461.6
+1171,180,ram,Type: Scale - Benchmark: Integer,13334.45,ramspeed,MB/s,13334.45
+1172,180,ram,Type: Triad - Benchmark: Integer,13558.15,ramspeed,MB/s,13558.15
+1173,180,ram,Type: Average - Benchmark: Integer,13563.5,ramspeed,MB/s,13563.5
+1174,180,ram,Type: Add - Benchmark: Floating Point,13681.13,ramspeed,MB/s,13681.13
+1175,180,ram,Type: Copy - Benchmark: Floating Point,13472,ramspeed,MB/s,13472
+1176,180,ram,Type: Scale - Benchmark: Floating Point,13289.41,ramspeed,MB/s,13289.41
+1177,180,ram,Type: Triad - Benchmark: Floating Point,13635.68,ramspeed,MB/s,13635.68
+1178,180,ram,Type: Average - Benchmark: Floating Point,13550.92,ramspeed,MB/s,13550.92
+1179,180,internet,Test: TCP - Parallel: 1,374.2,iperf,Mbits/sec,374.2
+1180,180,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1181,180,internet,Test: TCP - Parallel: 32,85.4,iperf,Mbits/sec,85.4
+1182,180,internet,Test: UDP - Parallel: 32,32.9,iperf,Mbits/sec,32.9
+1183,180,cpu,Test: Blowfish,1473,john-the-ripper,Real C/S,1473
+1184,180,cpu,Test: MD5,149696,john-the-ripper,Real C/S,149696
+1185,180,cpu,Time To Compile,898.385,build-linux-kernel,Seconds,317.032
+1186,180,ram,Type: Copy,11738.8,stream,MB/s,11738.8
+1187,180,ram,Type: Scale,13165.2,stream,MB/s,13165.2
+1188,180,ram,Type: Triad,13844.5,stream,MB/s,13844.5
+1189,180,ram,Type: Add,13840.1,stream,MB/s,13840.1
+1190,181,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1191,181,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+1192,181,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1193,181,memory,Type: Random Write - Block Size: 4KB,2996,fio,IOPS,2996
+1194,181,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1195,181,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1196,181,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1197,181,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1198,181,ram,Type: Add - Benchmark: Integer,25435.29,ramspeed,MB/s,25435.29
+1199,181,ram,Type: Copy - Benchmark: Integer,24059.61,ramspeed,MB/s,24059.61
+1200,181,ram,Type: Scale - Benchmark: Integer,19725.66,ramspeed,MB/s,19725.66
+1201,181,ram,Type: Triad - Benchmark: Integer,24849.28,ramspeed,MB/s,24849.28
+1202,181,ram,Type: Average - Benchmark: Integer,23264.16,ramspeed,MB/s,23264.16
+1203,181,ram,Type: Add - Benchmark: Floating Point,21192.2,ramspeed,MB/s,21192.2
+1204,181,ram,Type: Copy - Benchmark: Floating Point,23692.4,ramspeed,MB/s,23692.4
+1205,181,ram,Type: Scale - Benchmark: Floating Point,18143.79,ramspeed,MB/s,18143.79
+1206,181,ram,Type: Triad - Benchmark: Floating Point,25075.48,ramspeed,MB/s,25075.48
+1207,181,ram,Type: Average - Benchmark: Floating Point,21866.35,ramspeed,MB/s,21866.35
+1208,181,internet,Test: TCP - Parallel: 1,253.7,iperf,Mbits/sec,253.7
+1209,181,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1210,181,internet,Test: TCP - Parallel: 32,65,iperf,Mbits/sec,65
+1211,181,internet,Test: UDP - Parallel: 32,22.1,iperf,Mbits/sec,22.1
+1212,181,cpu,Test: Blowfish,2860,john-the-ripper,Real C/S,2860
+1213,181,cpu,Test: MD5,289154,john-the-ripper,Real C/S,289154
+1214,181,cpu,Time To Compile,480.027,build-linux-kernel,Seconds,735.39
+1215,181,ram,Type: Copy,22307,stream,MB/s,22307
+1216,181,ram,Type: Scale,27415.9,stream,MB/s,27415.9
+1217,181,ram,Type: Triad,28411.1,stream,MB/s,28411.1
+1218,181,ram,Type: Add,28417.6,stream,MB/s,28417.6
+1219,182,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1220,182,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+1221,182,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1222,182,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1223,182,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1224,182,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1225,182,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1226,182,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1227,182,ram,Type: Add - Benchmark: Integer,27313.79,ramspeed,MB/s,27313.79
+1228,182,ram,Type: Copy - Benchmark: Integer,25666.43,ramspeed,MB/s,25666.43
+1229,182,ram,Type: Scale - Benchmark: Integer,21221.41,ramspeed,MB/s,21221.41
+1230,182,ram,Type: Triad - Benchmark: Integer,26214.97,ramspeed,MB/s,26214.97
+1231,182,ram,Type: Average - Benchmark: Integer,25021.18,ramspeed,MB/s,25021.18
+1232,182,ram,Type: Add - Benchmark: Floating Point,23040.51,ramspeed,MB/s,23040.51
+1233,182,ram,Type: Copy - Benchmark: Floating Point,25554.21,ramspeed,MB/s,25554.21
+1234,182,ram,Type: Scale - Benchmark: Floating Point,19613.12,ramspeed,MB/s,19613.12
+1235,182,ram,Type: Triad - Benchmark: Floating Point,26570.57,ramspeed,MB/s,26570.57
+1236,182,ram,Type: Average - Benchmark: Floating Point,23828.31,ramspeed,MB/s,23828.31
+1237,182,internet,Test: TCP - Parallel: 1,906,iperf,Mbits/sec,906
+1238,182,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1239,182,internet,Test: TCP - Parallel: 32,285.6,iperf,Mbits/sec,285.6
+1240,182,internet,Test: UDP - Parallel: 32,22.1,iperf,Mbits/sec,22.1
+1241,182,cpu,Test: Blowfish,5800,john-the-ripper,Real C/S,5800
+1242,182,cpu,Test: MD5,584331,john-the-ripper,Real C/S,584331
+1243,182,cpu,Time To Compile,236.962,build-linux-kernel,Seconds,978.455
+1244,182,ram,Type: Copy,43310.9,stream,MB/s,43310.9
+1245,182,ram,Type: Scale,49005.6,stream,MB/s,49005.6
+1246,182,ram,Type: Triad,50830.4,stream,MB/s,50830.4
+1247,182,ram,Type: Add,51256.2,stream,MB/s,51256.2
+1248,183,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1249,183,memory,Type: Random Read - Block Size: 4KB,2995,fio,IOPS,2995
+1250,183,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1251,183,memory,Type: Random Write - Block Size: 4KB,2995,fio,IOPS,2995
+1252,183,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1253,183,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1254,183,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1255,183,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1256,183,ram,Type: Add - Benchmark: Integer,18468.47,ramspeed,MB/s,18468.47
+1257,183,ram,Type: Copy - Benchmark: Integer,16705.46,ramspeed,MB/s,16705.46
+1258,183,ram,Type: Scale - Benchmark: Integer,14965.46,ramspeed,MB/s,14965.46
+1259,183,ram,Type: Triad - Benchmark: Integer,15760.31,ramspeed,MB/s,15760.31
+1260,183,ram,Type: Average - Benchmark: Integer,16472.08,ramspeed,MB/s,16472.08
+1261,183,ram,Type: Add - Benchmark: Floating Point,18502.04,ramspeed,MB/s,18502.04
+1262,183,ram,Type: Copy - Benchmark: Floating Point,16697.04,ramspeed,MB/s,16697.04
+1263,183,ram,Type: Scale - Benchmark: Floating Point,15201.86,ramspeed,MB/s,15201.86
+1264,183,ram,Type: Triad - Benchmark: Floating Point,17754.78,ramspeed,MB/s,17754.78
+1265,183,ram,Type: Average - Benchmark: Floating Point,17024.39,ramspeed,MB/s,17024.39
+1266,183,internet,Test: TCP - Parallel: 1,81.9,iperf,Mbits/sec,81.9
+1267,183,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1268,183,internet,Test: TCP - Parallel: 32,116.7,iperf,Mbits/sec,116.7
+1269,183,internet,Test: UDP - Parallel: 32,33.4,iperf,Mbits/sec,33.4
+1270,183,cpu,Test: Blowfish,1459,john-the-ripper,Real C/S,1459
+1271,183,cpu,Test: MD5,47674,john-the-ripper,Real C/S,47674
+1272,183,cpu,Time To Compile,1170.391,build-linux-kernel,Seconds,45.026
+1273,183,ram,Type: Copy,15696.7,stream,MB/s,15696.7
+1274,183,ram,Type: Scale,15888.1,stream,MB/s,15888.1
+1275,183,ram,Type: Triad,16364.2,stream,MB/s,16364.2
+1276,183,ram,Type: Add,16587.2,stream,MB/s,16587.2
+1277,184,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1278,184,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+1279,184,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1280,184,memory,Type: Random Write - Block Size: 4KB,2996,fio,IOPS,2996
+1281,184,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1282,184,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1283,184,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1284,184,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1285,184,ram,Type: Add - Benchmark: Integer,16252.88,ramspeed,MB/s,16252.88
+1286,184,ram,Type: Copy - Benchmark: Integer,14540.4,ramspeed,MB/s,14540.4
+1287,184,ram,Type: Scale - Benchmark: Integer,13888.13,ramspeed,MB/s,13888.13
+1288,184,ram,Type: Triad - Benchmark: Integer,14926.83,ramspeed,MB/s,14926.83
+1289,184,ram,Type: Average - Benchmark: Integer,14771.85,ramspeed,MB/s,14771.85
+1290,184,ram,Type: Add - Benchmark: Floating Point,16197.93,ramspeed,MB/s,16197.93
+1291,184,ram,Type: Copy - Benchmark: Floating Point,14388.56,ramspeed,MB/s,14388.56
+1292,184,ram,Type: Scale - Benchmark: Floating Point,14426.09,ramspeed,MB/s,14426.09
+1293,184,ram,Type: Triad - Benchmark: Floating Point,16994.8,ramspeed,MB/s,16994.8
+1294,184,ram,Type: Average - Benchmark: Floating Point,16067.09,ramspeed,MB/s,16067.09
+1295,184,internet,Test: TCP - Parallel: 1,242,iperf,Mbits/sec,242
+1296,184,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1297,184,internet,Test: TCP - Parallel: 32,135,iperf,Mbits/sec,135
+1298,184,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1299,184,cpu,Test: Blowfish,2853,john-the-ripper,Real C/S,2853
+1300,184,cpu,Test: MD5,95300,john-the-ripper,Real C/S,95300
+1301,184,cpu,Time To Compile,643.281,build-linux-kernel,Seconds,572.136
+1302,184,ram,Type: Copy,16774.2,stream,MB/s,16774.2
+1303,184,ram,Type: Scale,15937.9,stream,MB/s,15937.9
+1304,184,ram,Type: Triad,17498.3,stream,MB/s,17498.3
+1305,184,ram,Type: Add,17812.6,stream,MB/s,17812.6
+1306,185,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1307,185,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+1308,185,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1309,185,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1310,185,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1311,185,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1312,185,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1313,185,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1314,185,ram,Type: Add - Benchmark: Integer,20123.11,ramspeed,MB/s,20123.11
+1315,185,ram,Type: Copy - Benchmark: Integer,17928.97,ramspeed,MB/s,17928.97
+1316,185,ram,Type: Scale - Benchmark: Integer,17343.43,ramspeed,MB/s,17343.43
+1317,185,ram,Type: Triad - Benchmark: Integer,18051.18,ramspeed,MB/s,18051.18
+1318,185,ram,Type: Average - Benchmark: Integer,18432.12,ramspeed,MB/s,18432.12
+1319,185,ram,Type: Add - Benchmark: Floating Point,20258.09,ramspeed,MB/s,20258.09
+1320,185,ram,Type: Copy - Benchmark: Floating Point,18184.35,ramspeed,MB/s,18184.35
+1321,185,ram,Type: Scale - Benchmark: Floating Point,17289.43,ramspeed,MB/s,17289.43
+1322,185,ram,Type: Triad - Benchmark: Floating Point,19961.7,ramspeed,MB/s,19961.7
+1323,185,ram,Type: Average - Benchmark: Floating Point,18952.13,ramspeed,MB/s,18952.13
+1324,185,internet,Test: TCP - Parallel: 1,114.1,iperf,Mbits/sec,114.1
+1325,185,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1326,185,internet,Test: TCP - Parallel: 32,135,iperf,Mbits/sec,135
+1327,185,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1328,185,cpu,Test: Blowfish,5728,john-the-ripper,Real C/S,5728
+1329,185,cpu,Test: MD5,188741,john-the-ripper,Real C/S,188741
+1330,185,cpu,Time To Compile,314.863,build-linux-kernel,Seconds,900.554
+1331,185,ram,Type: Copy,14888.6,stream,MB/s,14888.6
+1332,185,ram,Type: Scale,14801.3,stream,MB/s,14801.3
+1333,185,ram,Type: Triad,15938.4,stream,MB/s,15938.4
+1334,185,ram,Type: Add,15879.5,stream,MB/s,15879.5
+1335,186,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1336,186,memory,Type: Random Read - Block Size: 4KB,2998,fio,IOPS,2998
+1337,186,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1338,186,memory,Type: Random Write - Block Size: 4KB,2998,fio,IOPS,2998
+1339,186,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1340,186,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1341,186,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1342,186,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1343,186,ram,Type: Add - Benchmark: Integer,27653.42,ramspeed,MB/s,27653.42
+1344,186,ram,Type: Copy - Benchmark: Integer,25884.66,ramspeed,MB/s,25884.66
+1345,186,ram,Type: Scale - Benchmark: Integer,21919.96,ramspeed,MB/s,21919.96
+1346,186,ram,Type: Triad - Benchmark: Integer,27093.73,ramspeed,MB/s,27093.73
+1347,186,ram,Type: Average - Benchmark: Integer,25593.77,ramspeed,MB/s,25593.77
+1348,186,ram,Type: Add - Benchmark: Floating Point,23709.84,ramspeed,MB/s,23709.84
+1349,186,ram,Type: Copy - Benchmark: Floating Point,25930.29,ramspeed,MB/s,25930.29
+1350,186,ram,Type: Scale - Benchmark: Floating Point,20251.24,ramspeed,MB/s,20251.24
+1351,186,ram,Type: Triad - Benchmark: Floating Point,27442.96,ramspeed,MB/s,27442.96
+1352,186,ram,Type: Average - Benchmark: Floating Point,24313.83,ramspeed,MB/s,24313.83
+1353,186,internet,Test: TCP - Parallel: 1,35.94,iperf,Mbits/sec,35.94
+1354,186,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1355,186,internet,Test: TCP - Parallel: 32,64,iperf,Mbits/sec,64
+1356,186,internet,Test: UDP - Parallel: 32,24.6,iperf,Mbits/sec,24.6
+1357,186,cpu,Test: Blowfish,2977,john-the-ripper,Real C/S,2977
+1358,186,cpu,Test: MD5,338005,john-the-ripper,Real C/S,338005
+1359,186,cpu,Time To Compile,446.975,build-linux-kernel,Seconds,768.442
+1360,186,ram,Type: Copy,22237.4,stream,MB/s,22237.4
+1361,186,ram,Type: Scale,28169.6,stream,MB/s,28169.6
+1362,186,ram,Type: Triad,28967.7,stream,MB/s,28967.7
+1363,186,ram,Type: Add,29115.2,stream,MB/s,29115.2
+1364,187,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1365,187,memory,Type: Random Read - Block Size: 4KB,2995,fio,IOPS,2995
+1366,187,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1367,187,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1368,187,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1369,187,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1370,187,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1371,187,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1372,187,ram,Type: Add - Benchmark: Integer,27996.12,ramspeed,MB/s,27996.12
+1373,187,ram,Type: Copy - Benchmark: Integer,26790.56,ramspeed,MB/s,26790.56
+1374,187,ram,Type: Scale - Benchmark: Integer,22333.48,ramspeed,MB/s,22333.48
+1375,187,ram,Type: Triad - Benchmark: Integer,27455.36,ramspeed,MB/s,27455.36
+1376,187,ram,Type: Average - Benchmark: Integer,26151.85,ramspeed,MB/s,26151.85
+1377,187,ram,Type: Add - Benchmark: Floating Point,23847.26,ramspeed,MB/s,23847.26
+1378,187,ram,Type: Copy - Benchmark: Floating Point,26683.98,ramspeed,MB/s,26683.98
+1379,187,ram,Type: Scale - Benchmark: Floating Point,20588.7,ramspeed,MB/s,20588.7
+1380,187,ram,Type: Triad - Benchmark: Floating Point,27963.03,ramspeed,MB/s,27963.03
+1381,187,ram,Type: Average - Benchmark: Floating Point,24739.27,ramspeed,MB/s,24739.27
+1382,187,internet,Test: TCP - Parallel: 1,222,iperf,Mbits/sec,222
+1383,187,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1384,187,internet,Test: TCP - Parallel: 32,1012,iperf,Mbits/sec,1012
+1385,187,internet,Test: UDP - Parallel: 32,32.2,iperf,Mbits/sec,32.2
+1386,187,cpu,Test: Blowfish,5954,john-the-ripper,Real C/S,5954
+1387,187,cpu,Test: MD5,656111,john-the-ripper,Real C/S,656111
+1388,187,cpu,Time To Compile,233.801,build-linux-kernel,Seconds,981.616
+1389,187,ram,Type: Copy,42692.1,stream,MB/s,42692.1
+1390,187,ram,Type: Scale,52029.8,stream,MB/s,52029.8
+1391,187,ram,Type: Triad,53826.9,stream,MB/s,53826.9
+1392,187,ram,Type: Add,53967.9,stream,MB/s,53967.9
+1393,188,memory,Type: Random Read - Block Size: 4KB,11.2,fio,MB/s,11.2
+1394,188,memory,Type: Random Read - Block Size: 4KB,3056,fio,IOPS,3056
+1395,188,memory,Type: Random Write - Block Size: 4KB,11.2,fio,MB/s,11.2
+1396,188,memory,Type: Random Write - Block Size: 4KB,3057,fio,IOPS,3057
+1397,188,memory,Type: Sequential Read - Block Size: 2MB,56.1,fio,MB/s,56.1
+1398,188,memory,Type: Sequential Read - Block Size: 2MB,24,fio,IOPS,24
+1399,188,memory,Type: Sequential Write - Block Size: 2MB,56.1,fio,MB/s,56.1
+1400,188,memory,Type: Sequential Write - Block Size: 2MB,24,fio,IOPS,24
+1401,188,ram,Type: Add - Benchmark: Integer,10098.5,ramspeed,MB/s,10098.5
+1402,188,ram,Type: Copy - Benchmark: Integer,9562.88,ramspeed,MB/s,9562.88
+1403,188,ram,Type: Scale - Benchmark: Integer,9318.31,ramspeed,MB/s,9318.31
+1404,188,ram,Type: Triad - Benchmark: Integer,10069.2,ramspeed,MB/s,10069.2
+1405,188,ram,Type: Average - Benchmark: Integer,9759.68,ramspeed,MB/s,9759.68
+1406,188,ram,Type: Add - Benchmark: Floating Point,10038.55,ramspeed,MB/s,10038.55
+1407,188,ram,Type: Copy - Benchmark: Floating Point,9568.83,ramspeed,MB/s,9568.83
+1408,188,ram,Type: Scale - Benchmark: Floating Point,9272.46,ramspeed,MB/s,9272.46
+1409,188,ram,Type: Triad - Benchmark: Floating Point,9929.48,ramspeed,MB/s,9929.48
+1410,188,ram,Type: Average - Benchmark: Floating Point,9716.78,ramspeed,MB/s,9716.78
+1411,188,internet,Test: TCP - Parallel: 1,658,iperf,Mbits/sec,658
+1412,188,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1413,188,internet,Test: TCP - Parallel: 32,134,iperf,Mbits/sec,134
+1414,188,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1415,188,cpu,Test: Blowfish,1188,john-the-ripper,Real C/S,1188
+1416,188,cpu,Test: MD5,75144,john-the-ripper,Real C/S,75144
+1417,188,cpu,Time To Compile,1215.417,build-linux-kernel,Seconds,0
+1418,188,ram,Type: Copy,18758.1,stream,MB/s,18758.1
+1419,188,ram,Type: Scale,9643.4,stream,MB/s,9643.4
+1420,188,ram,Type: Triad,10218.4,stream,MB/s,10218.4
+1421,188,ram,Type: Add,10254.9,stream,MB/s,10254.9
+1422,189,memory,Type: Random Read - Block Size: 4KB,11.2,fio,MB/s,11.2
+1423,189,memory,Type: Random Read - Block Size: 4KB,3056,fio,IOPS,3056
+1424,189,memory,Type: Random Write - Block Size: 4KB,11.1,fio,MB/s,11.1
+1425,189,memory,Type: Random Write - Block Size: 4KB,3057,fio,IOPS,3057
+1426,189,memory,Type: Sequential Read - Block Size: 2MB,107,fio,MB/s,107
+1427,189,memory,Type: Sequential Read - Block Size: 2MB,50,fio,IOPS,50
+1428,189,memory,Type: Sequential Write - Block Size: 2MB,107,fio,MB/s,107
+1429,189,memory,Type: Sequential Write - Block Size: 2MB,50,fio,IOPS,50
+1430,189,ram,Type: Add - Benchmark: Integer,14079.2,ramspeed,MB/s,14079.2
+1431,189,ram,Type: Copy - Benchmark: Integer,12261.92,ramspeed,MB/s,12261.92
+1432,189,ram,Type: Scale - Benchmark: Integer,12586.15,ramspeed,MB/s,12586.15
+1433,189,ram,Type: Triad - Benchmark: Integer,13777.46,ramspeed,MB/s,13777.46
+1434,189,ram,Type: Average - Benchmark: Integer,13178.86,ramspeed,MB/s,13178.86
+1435,189,ram,Type: Add - Benchmark: Floating Point,13842.37,ramspeed,MB/s,13842.37
+1436,189,ram,Type: Copy - Benchmark: Floating Point,12287.61,ramspeed,MB/s,12287.61
+1437,189,ram,Type: Scale - Benchmark: Floating Point,12576.42,ramspeed,MB/s,12576.42
+1438,189,ram,Type: Triad - Benchmark: Floating Point,14152.24,ramspeed,MB/s,14152.24
+1439,189,ram,Type: Average - Benchmark: Floating Point,13224.75,ramspeed,MB/s,13224.75
+1440,189,internet,Test: TCP - Parallel: 1,60.8,iperf,Mbits/sec,60.8
+1441,189,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1442,189,internet,Test: TCP - Parallel: 32,135,iperf,Mbits/sec,135
+1443,189,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1444,189,cpu,Test: Blowfish,2370,john-the-ripper,Real C/S,2370
+1445,189,cpu,Test: MD5,150054,john-the-ripper,Real C/S,150054
+1446,189,cpu,Time To Compile,639.218,build-linux-kernel,Seconds,576.199
+1447,189,ram,Type: Copy,17010,stream,MB/s,17010
+1448,189,ram,Type: Scale,17769.2,stream,MB/s,17769.2
+1449,189,ram,Type: Triad,19098.7,stream,MB/s,19098.7
+1450,189,ram,Type: Add,19105.2,stream,MB/s,19105.2
+1451,190,memory,Type: Random Read - Block Size: 4KB,11.2,fio,MB/s,11.2
+1452,190,memory,Type: Random Read - Block Size: 4KB,3056,fio,IOPS,3056
+1453,190,memory,Type: Random Write - Block Size: 4KB,11,fio,MB/s,11
+1454,190,memory,Type: Random Write - Block Size: 4KB,3056,fio,IOPS,3056
+1455,190,memory,Type: Sequential Read - Block Size: 2MB,133,fio,MB/s,133
+1456,190,memory,Type: Sequential Read - Block Size: 2MB,63,fio,IOPS,63
+1457,190,memory,Type: Sequential Write - Block Size: 2MB,133,fio,MB/s,133
+1458,190,memory,Type: Sequential Write - Block Size: 2MB,63,fio,IOPS,63
+1459,190,ram,Type: Add - Benchmark: Integer,19475.92,ramspeed,MB/s,19475.92
+1460,190,ram,Type: Copy - Benchmark: Integer,16632.84,ramspeed,MB/s,16632.84
+1461,190,ram,Type: Scale - Benchmark: Integer,17242.59,ramspeed,MB/s,17242.59
+1462,190,ram,Type: Triad - Benchmark: Integer,18943.39,ramspeed,MB/s,18943.39
+1463,190,ram,Type: Average - Benchmark: Integer,17985.56,ramspeed,MB/s,17985.56
+1464,190,ram,Type: Add - Benchmark: Floating Point,19046.36,ramspeed,MB/s,19046.36
+1465,190,ram,Type: Copy - Benchmark: Floating Point,16721.44,ramspeed,MB/s,16721.44
+1466,190,ram,Type: Scale - Benchmark: Floating Point,17251.73,ramspeed,MB/s,17251.73
+1467,190,ram,Type: Triad - Benchmark: Floating Point,19037.6,ramspeed,MB/s,19037.6
+1468,190,ram,Type: Average - Benchmark: Floating Point,17997.27,ramspeed,MB/s,17997.27
+1469,190,internet,Test: TCP - Parallel: 1,1096,iperf,Mbits/sec,1096
+1470,190,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1471,190,internet,Test: TCP - Parallel: 32,1093,iperf,Mbits/sec,1093
+1472,190,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1473,190,cpu,Test: Blowfish,4744,john-the-ripper,Real C/S,4744
+1474,190,cpu,Test: MD5,299708,john-the-ripper,Real C/S,299708
+1475,190,cpu,Time To Compile,309.599,build-linux-kernel,Seconds,905.818
+1476,190,ram,Type: Copy,31720.7,stream,MB/s,31720.7
+1477,190,ram,Type: Scale,29864,stream,MB/s,29864
+1478,190,ram,Type: Triad,33168.6,stream,MB/s,33168.6
+1479,190,ram,Type: Add,32839.5,stream,MB/s,32839.5
+1480,191,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1481,191,memory,Type: Random Read - Block Size: 4KB,2997,fio,IOPS,2997
+1482,191,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1483,191,memory,Type: Random Write - Block Size: 4KB,2996,fio,IOPS,2996
+1484,191,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1485,191,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1486,191,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1487,191,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1488,191,ram,Type: Add - Benchmark: Integer,14766.4,ramspeed,MB/s,14766.4
+1489,191,ram,Type: Copy - Benchmark: Integer,14419.22,ramspeed,MB/s,14419.22
+1490,191,ram,Type: Scale - Benchmark: Integer,14283.72,ramspeed,MB/s,14283.72
+1491,191,ram,Type: Triad - Benchmark: Integer,14483.68,ramspeed,MB/s,14483.68
+1492,191,ram,Type: Average - Benchmark: Integer,14503.38,ramspeed,MB/s,14503.38
+1493,191,ram,Type: Add - Benchmark: Floating Point,14590.55,ramspeed,MB/s,14590.55
+1494,191,ram,Type: Copy - Benchmark: Floating Point,14365.98,ramspeed,MB/s,14365.98
+1495,191,ram,Type: Scale - Benchmark: Floating Point,14286.29,ramspeed,MB/s,14286.29
+1496,191,ram,Type: Triad - Benchmark: Floating Point,14554.02,ramspeed,MB/s,14554.02
+1497,191,ram,Type: Average - Benchmark: Floating Point,14467.17,ramspeed,MB/s,14467.17
+1498,191,ram,Type: Copy,12052.9,stream,MB/s,12052.9
+1499,191,ram,Type: Scale,13533.4,stream,MB/s,13533.4
+1500,191,ram,Type: Triad,14035.1,stream,MB/s,14035.1
+1501,191,ram,Type: Add,13973.6,stream,MB/s,13973.6
+1502,191,internet,Test: TCP - Parallel: 1,242.6,iperf,Mbits/sec,242.6
+1503,191,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1504,191,internet,Test: TCP - Parallel: 32,64.2,iperf,Mbits/sec,64.2
+1505,191,internet,Test: UDP - Parallel: 32,32.5,iperf,Mbits/sec,32.5
+1506,191,cpu,Test: Blowfish,1873,john-the-ripper,Real C/S,1873
+1507,191,cpu,Test: MD5,195793,john-the-ripper,Real C/S,195793
+1508,191,cpu,Time To Compile,719.485,build-linux-kernel,Seconds,495.932
+1509,192,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1510,192,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+1511,192,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1512,192,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1513,192,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1514,192,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1515,192,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1516,192,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1517,192,ram,Type: Add - Benchmark: Integer,27031.91,ramspeed,MB/s,27031.91
+1518,192,ram,Type: Copy - Benchmark: Integer,25396.48,ramspeed,MB/s,25396.48
+1519,192,ram,Type: Scale - Benchmark: Integer,20891.77,ramspeed,MB/s,20891.77
+1520,192,ram,Type: Triad - Benchmark: Integer,26555.96,ramspeed,MB/s,26555.96
+1521,192,ram,Type: Average - Benchmark: Integer,25002.44,ramspeed,MB/s,25002.44
+1522,192,ram,Type: Add - Benchmark: Floating Point,23061.27,ramspeed,MB/s,23061.27
+1523,192,ram,Type: Copy - Benchmark: Floating Point,25484.68,ramspeed,MB/s,25484.68
+1524,192,ram,Type: Scale - Benchmark: Floating Point,19356.77,ramspeed,MB/s,19356.77
+1525,192,ram,Type: Triad - Benchmark: Floating Point,26755.51,ramspeed,MB/s,26755.51
+1526,192,ram,Type: Average - Benchmark: Floating Point,23731.1,ramspeed,MB/s,23731.1
+1527,192,ram,Type: Copy,23750.1,stream,MB/s,23750.1
+1528,192,ram,Type: Scale,25934.8,stream,MB/s,25934.8
+1529,192,ram,Type: Triad,26765.8,stream,MB/s,26765.8
+1530,192,ram,Type: Add,26747,stream,MB/s,26747
+1531,192,internet,Test: TCP - Parallel: 1,18.83,iperf,Mbits/sec,18.83
+1532,192,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1533,192,internet,Test: TCP - Parallel: 32,93.5,iperf,Mbits/sec,93.5
+1534,192,internet,Test: UDP - Parallel: 32,33.7,iperf,Mbits/sec,33.7
+1535,192,cpu,Test: Blowfish,3743,john-the-ripper,Real C/S,3743
+1536,192,cpu,Test: MD5,390314,john-the-ripper,Real C/S,390314
+1537,192,cpu,Time To Compile,365.273,build-linux-kernel,Seconds,850.144
+1538,193,memory,Type: Random Read - Block Size: 4KB,11.7,fio,MB/s,11.7
+1539,193,memory,Type: Random Read - Block Size: 4KB,2996,fio,IOPS,2996
+1540,193,memory,Type: Random Write - Block Size: 4KB,11.7,fio,MB/s,11.7
+1541,193,memory,Type: Random Write - Block Size: 4KB,2997,fio,IOPS,2997
+1542,193,memory,Type: Sequential Read - Block Size: 2MB,131,fio,MB/s,131
+1543,193,memory,Type: Sequential Read - Block Size: 2MB,62,fio,IOPS,62
+1544,193,memory,Type: Sequential Write - Block Size: 2MB,131,fio,MB/s,131
+1545,193,memory,Type: Sequential Write - Block Size: 2MB,62,fio,IOPS,62
+1546,193,ram,Type: Add - Benchmark: Integer,27774.32,ramspeed,MB/s,27774.32
+1547,193,ram,Type: Copy - Benchmark: Integer,25934.22,ramspeed,MB/s,25934.22
+1548,193,ram,Type: Scale - Benchmark: Integer,21136.66,ramspeed,MB/s,21136.66
+1549,193,ram,Type: Triad - Benchmark: Integer,27056.73,ramspeed,MB/s,27056.73
+1550,193,ram,Type: Average - Benchmark: Integer,25520.1,ramspeed,MB/s,25520.1
+1551,193,ram,Type: Add - Benchmark: Floating Point,23504.03,ramspeed,MB/s,23504.03
+1552,193,ram,Type: Copy - Benchmark: Floating Point,26186.08,ramspeed,MB/s,26186.08
+1553,193,ram,Type: Scale - Benchmark: Floating Point,19646.87,ramspeed,MB/s,19646.87
+1554,193,ram,Type: Triad - Benchmark: Floating Point,27363.88,ramspeed,MB/s,27363.88
+1555,193,ram,Type: Average - Benchmark: Floating Point,24005.61,ramspeed,MB/s,24005.61
+1556,193,ram,Type: Copy,46604.9,stream,MB/s,46604.9
+1557,193,ram,Type: Scale,47315.6,stream,MB/s,47315.6
+1558,193,ram,Type: Triad,49840.1,stream,MB/s,49840.1
+1559,193,ram,Type: Add,49786.6,stream,MB/s,49786.6
+1560,193,internet,Test: TCP - Parallel: 1,930,iperf,Mbits/sec,930
+1561,193,internet,Test: UDP - Parallel: 1,1.05,iperf,Mbits/sec,1.05
+1562,193,internet,Test: TCP - Parallel: 32,485.9,iperf,Mbits/sec,485.9
+1563,193,internet,Test: UDP - Parallel: 32,33.3,iperf,Mbits/sec,33.3
+1564,193,cpu,Test: Blowfish,7489,john-the-ripper,Real C/S,7489
+1565,193,cpu,Test: MD5,780629,john-the-ripper,Real C/S,780629
+1566,193,cpu,Time To Compile,194.167,build-linux-kernel,Seconds,1021.25

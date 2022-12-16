@@ -1,13 +1,8 @@
 package org.workflowsim.scheduling;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
-import org.apache.commons.math3.random.JDKRandomGenerator;
-import org.apache.commons.math3.random.RandomGenerator;
-import org.apache.commons.math3.util.Pair;
 import org.workflowsim.*;
-import org.workflowsim.utils.BenchmarkSet;
 import org.workflowsim.utils.ReshiTask;
-import org.workflowsim.utils.ReshiTaskCostFunction;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -27,8 +22,8 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
     NormalDistribution normalDistribution;
     Random random;
 
-    public ReshiSchedulingAlgorithm(ReshiStrategy reshiStrategy) {
 
+    public ReshiSchedulingAlgorithm(ReshiStrategy reshiStrategy) {
         this.reshiStrategy = reshiStrategy;
         reshiTaskList = new ArrayList<>();
 
@@ -44,12 +39,7 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
-
-
 
     @Override
     public void run() throws Exception {
@@ -118,7 +108,13 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                     return 0;
                 }
             });
+        } else if (reshiStrategy == ReshiStrategy.CRITICALPATH) {
+            Collections.sort(cloudlets, (j1, j2) -> {
+                double l1 = get_task_ranking().get(j1);
+                double l2 = get_task_ranking().get(j2);
 
+                return Double.compare(l1, l2);
+            });
         }
 
         for (Job task : cloudlets) {
@@ -183,34 +179,6 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
         Collections.sort(filteredList);
         // todo: here we need to use different allocation heuristics
         return filteredList.get(0);
-    }
-
-    /**
-     * selects the ReshiTask object with the lowest cost according to a cost function.
-     * @param filteredList the list of ReshiTasks to choose from.
-     * @param cost_func the cost function of choice.
-     * @return the ReshiTask object with the lowest cost.
-     */
-    public ReshiTask select_lowest_cost(List<ReshiTask> filteredList, ReshiTaskCostFunction cost_func){
-        // we can set lowest_rank to 1.0 since we assume the reg. tree ranks nodes in integers
-        double lowest_rank = 1.0;
-        Iterator<ReshiTask> it = filteredList.listIterator();
-        ReshiTask res = null;
-        double cost = Double.MAX_VALUE;
-        while (it.hasNext()){
-            ReshiTask current = it.next();
-            if (current.get_rank() > lowest_rank){
-                break;
-            }
-            Pair<BenchmarkSet, BenchmarkSet> s1_s2 = BenchmarkSet.distill_benchmarks(current);
-            double current_value = cost_func.compare(s1_s2.getFirst(), s1_s2.getSecond());
-            if (current_value < cost) {
-                cost = current_value;
-                res = current;
-            }
-        }
-        assert (res != null);
-        return res;
     }
 
 

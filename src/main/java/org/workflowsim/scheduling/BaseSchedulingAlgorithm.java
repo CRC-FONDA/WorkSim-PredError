@@ -17,8 +17,11 @@ package org.workflowsim.scheduling;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.Vm;
+import org.workflowsim.Task;
 
 /**
  * The base scheduler has implemented the basic features. Every other scheduling method
@@ -42,6 +45,11 @@ public abstract class BaseSchedulingAlgorithm implements SchedulingAlgorithmInte
      * the scheduled job list.
      */
     private List< Cloudlet> scheduledList;
+
+    /**
+     * stores the critical path of each task.
+     */
+    private Map<Task, Double> task_ranking;
 
     /**
      * Initialize a BaseSchedulingAlgorithm
@@ -68,6 +76,22 @@ public abstract class BaseSchedulingAlgorithm implements SchedulingAlgorithmInte
     @Override
     public void setVmList(List list) {
         this.vmList = new ArrayList(list);
+    }
+
+    /**
+     * returns the map containing the critical computation path of each task
+     * @return the map.
+     */
+    public Map<Task, Double> get_task_ranking(){
+        return this.task_ranking;
+    }
+
+    /**
+     * sets the task ranking field.
+     * @param ranking the ranking to set it to.
+     */
+    public void set_task_ranking(Map<Task, Double> ranking){
+        this.task_ranking = ranking;
     }
 
     /**
