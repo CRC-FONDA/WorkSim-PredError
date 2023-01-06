@@ -44,7 +44,7 @@ public abstract class BaseSchedulingAlgorithm implements SchedulingAlgorithmInte
     /**
      * the scheduled job list.
      */
-    private List< Cloudlet> scheduledList;
+    private List<Cloudlet> scheduledList;
 
     /**
      * stores the critical path of each task.

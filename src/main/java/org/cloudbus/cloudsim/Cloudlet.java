@@ -1479,4 +1479,27 @@ public class Cloudlet {
 	public void setCloudletLengthWithNoise(long cloudletLengthWithNoise) {
 		this.cloudletLengthWithNoise = cloudletLengthWithNoise;
 	}
+
+	/**
+	 * Cloudlets are identified with their unique cloudletId. Thus, equals should return
+	 * true iff the cloudletIds are equal.
+	 * @param o the other Object
+	 * @return true iff both Cloudlets have the same Id.
+	 */
+	@Override
+	public boolean equals(Object o){
+		if (!(o instanceof Cloudlet))
+			return false;
+		Cloudlet other = (Cloudlet) o;
+		return this.cloudletId == other.cloudletId;
+	}
+
+	/**
+	 * since Cloudlets are identified with their unique Id, hashCode() returns this Id.
+	 * @return the cloudletId.
+	 */
+	@Override
+	public int hashCode(){
+		return this.cloudletId;
+	}
 }

@@ -110,12 +110,13 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             });
         } else if (reshiStrategy == ReshiStrategy.CRITICALPATH) {
             Collections.sort(cloudlets, (j1, j2) -> {
-                double l1 = get_task_ranking().get(j1);
-                double l2 = get_task_ranking().get(j2);
+                double l1 = get_task_ranking().get(j1.getTaskList().get(0));
+                double l2 = get_task_ranking().get(j2.getTaskList().get(0));
 
                 return Double.compare(l1, l2);
             });
         }
+
 
         for (Job task : cloudlets) {
 

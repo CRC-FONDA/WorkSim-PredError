@@ -27,6 +27,7 @@ import org.cloudbus.cloudsim.core.SimEvent;
 import org.cloudbus.cloudsim.lists.VmList;
 import org.workflowsim.failure.FailureGenerator;
 import org.workflowsim.scheduling.*;
+import org.workflowsim.utils.DAGParser;
 import org.workflowsim.utils.Parameters;
 import org.workflowsim.utils.Parameters.SchedulingAlgorithm;
 
@@ -46,6 +47,8 @@ public class WorkflowScheduler extends DatacenterBroker {
      */
     private int workflowEngineId;
 
+    private DAGParser dag_parser;
+
     /**
      * Created a new WorkflowScheduler object.
      *
@@ -57,6 +60,8 @@ public class WorkflowScheduler extends DatacenterBroker {
      */
     public WorkflowScheduler(String name) throws Exception {
         super(name);
+        // todo: this throws a seedstack nullpointer in the MetaGetter class.
+        dag_parser = new DAGParser();
     }
 
     /**
@@ -154,6 +159,9 @@ public class WorkflowScheduler extends DatacenterBroker {
             case RESHIMAX:
                 algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.MAX);
                 break;
+            case CRITICALPATH:
+                algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                break;
             case MINMIN:
                 algorithm = new MinMinSchedulingAlgorithm();
                 break;
@@ -249,6 +257,7 @@ public class WorkflowScheduler extends DatacenterBroker {
         BaseSchedulingAlgorithm scheduler = getScheduler(Parameters.getSchedulingAlgorithm());
         scheduler.setCloudletList(getCloudletList());
         scheduler.setVmList(getVmsCreatedList());
+        scheduler.set_task_ranking(dag_parser.get_task_ranking());
 
         try {
             scheduler.run();

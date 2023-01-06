@@ -22,7 +22,7 @@ public class MetaGetter {
 
     private static double error = 0.5;
 
-    private static String workflow = "methylseq";
+    private static String workflow = "viralrecon";
 
     private static String distribution = "normal";
 
@@ -35,6 +35,8 @@ public class MetaGetter {
     private static int randPointer = 0;
 
     private static int randPointerOffset = 0;
+
+    private static String realdaxPath = "/home/david/Developement/Java/WorkSim-PredError/src/main/resources/config/dax/";
 
     private static List<LinkedHashMap<String, Object>> arr;
 
@@ -105,6 +107,10 @@ public class MetaGetter {
             return -1;
         }
 
+    }
+
+    public static String getRealdaxPath(){
+        return realdaxPath;
     }
 
     public static List<LinkedHashMap<String, Object>> getArr() {

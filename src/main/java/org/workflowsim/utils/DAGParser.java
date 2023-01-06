@@ -1,9 +1,21 @@
 package org.workflowsim.utils;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.workflowsim.MetaGetter;
 import org.workflowsim.Task;
 import org.workflowsim.WorkflowParser;
+import org.xml.sax.SAXException;
 
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -19,31 +31,77 @@ public class DAGParser {
     /**
      * this map stores the mapping of machine id and corresponding name in the csv files of "tested_runtimes".
      */
-    private Map<String, String> machine_id_name;
+    private Map<String, Double> machine_name_runtime;
+
+    private Map<String, Double> relative_machine_speed;
 
     public DAGParser(){
-        machine_id_name = new HashMap<>();
+        machine_name_runtime = new HashMap<>();
         parser = new WorkflowParser(-1);
         parser.parse();
         workflow_DAG = parser.getTaskList();
-        get_machine_speed(Parameters.get_csv_path());
-        parse_csv_file(Parameters.get_csv_path() + "averageRuntimesPredictionBase.csv");
-        // init_task_priority_ranking();
-        for (Task t : workflow_DAG){
-            System.out.println("DEBUGGING: cloudletid=" + t.getCloudletId() + " | type=" + t.getType());
-        }
+        relative_machine_speed = new HashMap<>();
+        filter_benchmark_results("Test: MD5");
+        parseDaxXml(MetaGetter.getRealdaxPath());
+        init_task_priority_ranking();
     }
 
-    public void get_machine_speed(String path_to_machines){
-        ArrayList<String[]> machine_ids_names = parse_csv_file(path_to_machines + "nodeConfigs.csv");
-        int id_idx = get_string_index("id", machine_ids_names.get(0));
-        int name_idx = get_string_index("type", machine_ids_names.get(0));
-        for (int i = 1; i < machine_ids_names.size(); i++){
-            machine_id_name.put(machine_ids_names.get(i)[id_idx], machine_ids_names.get(i)[name_idx]);
+    public void parseDaxXml(String realDaxPath){
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+
+            // optional, but recommended
+            // process XML securely, avoid attacks like XML External Entities (XXE)
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+            // parse XML file
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            Document doc = db.parse(new File(realDaxPath + MetaGetter.getWorkflow() + ".xml"));
+
+            // optional, but recommended
+            doc.getDocumentElement().normalize();
+
+            NodeList list = doc.getElementsByTagName("job");
+            for (int i = 0; i < list.getLength(); i++){
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    String name = element.getAttribute("name");
+                    String runtime = element.getAttribute("runtime");
+                    machine_name_runtime.put(name, Double.parseDouble(runtime));
+                }
+            }
         }
-        for (String key : machine_id_name.keySet()){
-            System.out.println(key + " | " + machine_id_name.get(key));
+        catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
         }
+
+    }
+
+
+
+    public void filter_benchmark_results(String benchmark){
+        ArrayList<String[]> benchmark_results = parse_csv_file(Parameters.get_csv_path() + "nodeBenchmarks.csv");
+        int benchmark_idx = get_string_index("benchmarkType", benchmark_results.get(0));
+        int benchmark_result = get_string_index("result", benchmark_results.get(0));
+        int id_idx = get_string_index("nodeConfig", benchmark_results.get(0));
+        boolean first_found = false;
+        String first_found_key = "";
+        for (String[] entry : benchmark_results){
+            if (entry[benchmark_idx].equals(benchmark)){
+                if (!first_found){
+                    first_found_key = entry[id_idx];
+                    first_found = true;
+                    relative_machine_speed.put(entry[id_idx], Double.parseDouble(entry[benchmark_result]));
+                }
+                else {
+                    relative_machine_speed.put(entry[id_idx], Double.parseDouble(entry[benchmark_result]) / relative_machine_speed.get(first_found_key));
+                }
+            }
+        }
+        relative_machine_speed.put(first_found_key, 1.0);
     }
 
     public ArrayList<String[]> parse_csv_file(String path){
@@ -73,6 +131,7 @@ public class DAGParser {
             if (A[i].equals(pattern))
                 return i;
         }
+        System.out.println("Error, pattern not found.");
         return -1;
     }
 
@@ -93,16 +152,12 @@ public class DAGParser {
     public double DFS(Task u, Map<Task, Double> m){
         if (m.containsKey(u) && m.get(u) != -1.0)
             return m.get(u);
-        if (u.getChildList().isEmpty()){
-            return u.getProcessingCost();
-        }
         double rank = 0.0;
         for (Task v : u.getChildList()){
             rank = Math.max(rank, DFS(v, m));
         }
-        m.put(u, rank + u.getProcessingCost());
-        System.out.println("DEBUGGING: taskrank=" + m.get(u));
-        return rank + u.getProcessingCost();
+        m.put(u, rank + machine_name_runtime.get(u.getType()));
+        return m.get(u);
     }
 
 

@@ -77,6 +77,11 @@ public class Task extends Cloudlet {
     private double taskFinishTime;
 
     /**
+     * this represents the estimated runtime of a task gauged as the average runtime on every machine.
+     */
+    private double runtime;
+
+    /**
      * Allocates a new Task object. The task length should be greater than or
      * equal to 1.
      *
@@ -113,6 +118,22 @@ public class Task extends Cloudlet {
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * sets the runtime field.
+     * @param time the runtime.
+     */
+    public void set_runtime(double time){
+        this.runtime = time;
+    }
+
+    /**
+     * returns the runtime of the task.
+     * @return the runtime.
+     */
+    public double get_runtime(){
+        return runtime;
     }
 
     /**

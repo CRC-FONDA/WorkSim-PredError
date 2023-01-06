@@ -407,10 +407,8 @@ public abstract class SimEntity implements Cloneable {
 			if (state != RUNNABLE) {
 				break;
 			}
-
 			ev = getNextEvent();
 		}
-
 		evbuf = null;
 	}
 

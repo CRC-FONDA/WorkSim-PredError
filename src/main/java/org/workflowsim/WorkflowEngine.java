@@ -132,6 +132,7 @@ public final class WorkflowEngine extends SimEntity {
      * @param list the list
      */
     public void submitCloudletList(List<? extends Cloudlet> list) {
+        System.out.println("DEBUGGING: WorkflowEngine.submitCloudletList() list.size()=" + list.size());
         getJobsList().addAll(list);
     }
 
