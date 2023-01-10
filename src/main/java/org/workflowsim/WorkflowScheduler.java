@@ -162,6 +162,9 @@ public class WorkflowScheduler extends DatacenterBroker {
             case CRITICALPATH:
                 algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
                 break;
+            case CRITICALPATHREVERSE:
+                algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.CRITICALPATHREVERSE);
+                break;
             case MINMIN:
                 algorithm = new MinMinSchedulingAlgorithm();
                 break;

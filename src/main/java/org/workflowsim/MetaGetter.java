@@ -36,7 +36,7 @@ public class MetaGetter {
 
     private static int randPointerOffset = 0;
 
-    private static String realdaxPath = "/home/david/Developement/Java/WorkSim-PredError/src/main/resources/config/dax/";
+    private static String realdaxPath = "src/main/resources/config/dax/";
 
     private static List<LinkedHashMap<String, Object>> arr;
 

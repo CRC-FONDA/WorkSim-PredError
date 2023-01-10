@@ -37,7 +37,7 @@ public class Parameters {
 
         MAXMIN, MINMIN, MCT, DATA, 
         STATIC, FCFS, ROUNDROBIN, INVALID,
-        RESHIV1, RESHIV2, RESHIV3, RESHIFCFS,RESHIMAX, CRITICALPATH
+        RESHIV1, RESHIV2, RESHIV3, RESHIFCFS,RESHIMAX, CRITICALPATH, CRITICALPATHREVERSE
     }
     
     /**
@@ -176,7 +176,7 @@ public class Parameters {
      */
     private static CostModel costModel = CostModel.DATACENTER;
 
-    private static final String csv_path = "/home/david/Developement/Java/WorkSim-PredError/src/main/resources/config/tested_runtimes/";
+    private static final String csv_path = "src/main/resources/config/tested_runtimes/";
     
     /**
      * A static function so that you can specify them in any place

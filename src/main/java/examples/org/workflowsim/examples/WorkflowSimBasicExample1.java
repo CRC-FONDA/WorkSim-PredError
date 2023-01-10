@@ -233,7 +233,7 @@ public class WorkflowSimBasicExample1 {
         // prepareSimulations(MetaGetter.getArr(), 100, 4);
         //prepareSimulations(MetaGetter.getArr(), 100, 8);
         //prepareSimulations(MetaGetter.getArr(), 100, 12);
-        prepareSimulations(MetaGetter.getArr(), 1, 15);
+        prepareSimulations(MetaGetter.getArr(), 50, 15);
         //prepareSimulations(MetaGetter.getArr(), 100, 20);
         //prepareSimulations(MetaGetter.getArr(), 100, 24);
 
@@ -273,7 +273,8 @@ public class WorkflowSimBasicExample1 {
 
             runSimulation(i, Parameters.SchedulingAlgorithm.CRITICALPATH, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-
+            runSimulation(i, Parameters.SchedulingAlgorithm.CRITICALPATHREVERSE, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV2, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.RESHIV3, arr, resultsWriter, clusterSize);
