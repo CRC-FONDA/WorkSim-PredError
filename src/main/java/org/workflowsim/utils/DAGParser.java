@@ -1,5 +1,6 @@
 package org.workflowsim.utils;
 
+import org.apache.commons.math3.util.Pair;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,7 +34,7 @@ public class DAGParser {
      */
     private Map<String, Double> machine_name_runtime;
 
-    private Map<String, Double> relative_machine_speed;
+    private Map<String, Pair<Double, Double>> relative_machine_speed;
 
     public DAGParser(){
         machine_name_runtime = new HashMap<>();
@@ -41,7 +42,36 @@ public class DAGParser {
         parser.parse();
         workflow_DAG = parser.getTaskList();
         relative_machine_speed = new HashMap<>();
-        filter_benchmark_results("Test: MD5");
+        // filter_benchmark_results("Test: MD5");
+        relative_machine_speed.put("m5.large", new Pair<>(804.0,958.0));
+        relative_machine_speed.put("m5.xlarge", new Pair<>(852.0,2003.0));
+        relative_machine_speed.put("m5.2xlarge", new Pair<>(841.0,3831.0));
+        relative_machine_speed.put("m5a.large", new Pair<>(136.0,127.0));
+        relative_machine_speed.put("m5a.xlarge", new Pair<>(676.0,1663.0));
+        relative_machine_speed.put("m5a.2xlarge", new Pair<>(712.0,3234.0));
+        relative_machine_speed.put("m5zn.large", new Pair<>(1044.0,1283.0));
+        relative_machine_speed.put("m5zn.xlarge", new Pair<>(1233.0,2847.0));
+        relative_machine_speed.put("m5zn.2xlarge", new Pair<>(1193.0,5514.0));
+        relative_machine_speed.put("c5.large", new Pair<>(995.0,1188.0));
+        relative_machine_speed.put("c5.xlarge", new Pair<>(964.0,2276.0));
+        relative_machine_speed.put("c5.2xlarge", new Pair<>(1041.0,4673.0));
+        relative_machine_speed.put("c5a.large", new Pair<>(804.0,958.0));
+        relative_machine_speed.put("c5a.xlarge", new Pair<>(1017.0,2498.0));
+        relative_machine_speed.put("c5a.2xlarge", new Pair<>(1062.0,4784.0));
+        relative_machine_speed.put("r5.large", new Pair<>(893.0,1045.0));
+        relative_machine_speed.put("r5.xlarge", new Pair<>(818.0,1880.0));
+        relative_machine_speed.put("r5.2xlarge", new Pair<>(846.0,3942.0));
+        relative_machine_speed.put("r5a.large", new Pair<>(274.0,343.0));
+        relative_machine_speed.put("r5a.xlarge", new Pair<>(718.0,1763.0));
+        relative_machine_speed.put("r5a.2xlarge", new Pair<>(716.0,3242.0));
+        relative_machine_speed.put("d3.xlarge", new Pair<>(877.0,2049.0));
+        relative_machine_speed.put("d3.2xlarge", new Pair<>(894.0,4061.0));
+        relative_machine_speed.put("i3.large", new Pair<>(727.0,853.0));
+        relative_machine_speed.put("i3.xlarge", new Pair<>(724.0,1680.0));
+        relative_machine_speed.put("i3.2xlarge", new Pair<>(711.0,3230.0));
+        relative_machine_speed.put("z1d.large", new Pair<>(1085.0,1290.0));
+        relative_machine_speed.put("z1d.xlarge", new Pair<>(1063.0,2502.0));
+        relative_machine_speed.put("z1d.2xlarge", new Pair<>(1093.0,4444.0));
         parseDaxXml(MetaGetter.getRealdaxPath());
         init_task_priority_ranking();
     }
@@ -77,12 +107,11 @@ public class DAGParser {
         catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
-
-    public void filter_benchmark_results(String benchmark){
+    /*
+    public void filter_benchmark_results(String benchmark) {
         ArrayList<String[]> benchmark_results = parse_csv_file(Parameters.get_csv_path() + "nodeBenchmarks.csv");
         int benchmark_idx = get_string_index("benchmarkType", benchmark_results.get(0));
         int benchmark_result = get_string_index("result", benchmark_results.get(0));
@@ -103,6 +132,8 @@ public class DAGParser {
         }
         relative_machine_speed.put(first_found_key, 1.0);
     }
+
+     */
 
     public ArrayList<String[]> parse_csv_file(String path){
         ArrayList<String[]> entries = new ArrayList<>();
