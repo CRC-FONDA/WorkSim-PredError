@@ -230,12 +230,12 @@ public class WorkflowSimBasicExample1 {
             System.out.println("Start");
         }
 
-        // prepareSimulations(MetaGetter.getArr(), 100, 4);
-        //prepareSimulations(MetaGetter.getArr(), 100, 8);
-        //prepareSimulations(MetaGetter.getArr(), 100, 12);
-        prepareSimulations(MetaGetter.getArr(), 50, 15);
-        //prepareSimulations(MetaGetter.getArr(), 100, 20);
-        //prepareSimulations(MetaGetter.getArr(), 100, 24);
+        prepareSimulations(MetaGetter.getArr(), 200, 4);
+        prepareSimulations(MetaGetter.getArr(), 200, 8);
+        prepareSimulations(MetaGetter.getArr(), 200, 12);
+        prepareSimulations(MetaGetter.getArr(), 200, 15);
+        prepareSimulations(MetaGetter.getArr(), 200, 20);
+        prepareSimulations(MetaGetter.getArr(), 200, 24);
 
     }
 
