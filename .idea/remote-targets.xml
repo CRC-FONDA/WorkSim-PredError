@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="davidschuldes@cpu16.cit.tu-berlin.de:22" type="ssh/sftp" uuid="3010931d-3b90-49a2-9a97-725bf82b079a">
+        <config>
+          <option name="projectRootOnTarget" value="$PROJECT_DIR$/../../../../davidschuldes/WorkSim-PredError" />
+          <option name="serverName" value="davidschuldes@cpu16.cit.tu-berlin.de:22 agent" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="javaVersionString" value="11.0.17" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

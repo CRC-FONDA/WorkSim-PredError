@@ -233,9 +233,15 @@ public class WorkflowSimBasicExample1 {
         prepareSimulations(MetaGetter.getArr(), 200, 4);
         prepareSimulations(MetaGetter.getArr(), 200, 8);
         prepareSimulations(MetaGetter.getArr(), 200, 12);
-        prepareSimulations(MetaGetter.getArr(), 200, 15);
+        prepareSimulations(MetaGetter.getArr(), 200, 16);
         prepareSimulations(MetaGetter.getArr(), 200, 20);
         prepareSimulations(MetaGetter.getArr(), 200, 24);
+        prepareSimulations(MetaGetter.getArr(), 200, 28);
+        prepareSimulations(MetaGetter.getArr(), 200, 32);
+        prepareSimulations(MetaGetter.getArr(), 200, 36);
+        prepareSimulations(MetaGetter.getArr(), 200, 40);
+
+
 
     }
 
@@ -255,8 +261,6 @@ public class WorkflowSimBasicExample1 {
             //seedWriter.flush();
             //seedWriter.close();
 
-            /* non-ML scheduling/planning algorithms.
-
             runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
@@ -267,7 +271,7 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-            */
+
 
 
 
