@@ -221,7 +221,7 @@ public class WorkflowSimBasicExample1 {
         // Hier die Args nutzen
         // deployment einstellen
         // Mehr VMs auf einem Host
-
+        // Test
 
         if (args.length == 3) {
             MetaGetter.setWorkflow(args[0]);
@@ -229,7 +229,7 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.setError(Double.parseDouble(args[2]));
             System.out.println("Start");
         }
-
+        /*
         prepareSimulations(MetaGetter.getArr(), 200, 4);
         prepareSimulations(MetaGetter.getArr(), 200, 8);
         prepareSimulations(MetaGetter.getArr(), 200, 12);
@@ -239,6 +239,8 @@ public class WorkflowSimBasicExample1 {
         prepareSimulations(MetaGetter.getArr(), 200, 28);
         prepareSimulations(MetaGetter.getArr(), 200, 32);
         prepareSimulations(MetaGetter.getArr(), 200, 36);
+
+         */
         prepareSimulations(MetaGetter.getArr(), 200, 40);
 
 
