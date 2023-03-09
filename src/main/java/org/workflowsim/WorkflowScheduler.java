@@ -183,6 +183,9 @@ public class WorkflowScheduler extends DatacenterBroker {
             case ROUNDROBIN:
                 algorithm = new RoundRobinSchedulingAlgorithm();
                 break;
+            case TEXTDISTANCE:
+                algorithm = new DTR_TD_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                break;
             default:
                 algorithm = new StaticSchedulingAlgorithm();
                 break;
