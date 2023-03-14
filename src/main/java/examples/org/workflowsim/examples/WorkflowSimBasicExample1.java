@@ -21,11 +21,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-import com.jayway.jsonpath.JsonPath;
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
 import org.cloudbus.cloudsim.DatacenterCharacteristics;
@@ -50,8 +47,6 @@ import org.workflowsim.utils.OverheadParameters;
 import org.workflowsim.utils.Parameters;
 import org.workflowsim.utils.ReplicaCatalog;
 import org.workflowsim.utils.Parameters.ClassType;
-
-import static org.workflowsim.MetaGetter.getArr;
 
 /**
  * This WorkflowSimExample creates a workflow planner, a workflow engine, and
@@ -276,8 +271,10 @@ public class WorkflowSimBasicExample1 {
 
 
 
-            runSimulation(i, Parameters.SchedulingAlgorithm.TEXTDISTANCE, arr, resultsWriter, clusterSize);
+            runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
+            // runSimulation(i, Parameters.SchedulingAlgorithm.TEXTDISTANCE, arr, resultsWriter, clusterSize);
+            // MetaGetter.resetGenerator();
 
             runSimulation(i, Parameters.SchedulingAlgorithm.CRITICALPATH, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();

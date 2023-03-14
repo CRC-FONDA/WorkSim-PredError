@@ -186,6 +186,9 @@ public class WorkflowScheduler extends DatacenterBroker {
             case TEXTDISTANCE:
                 algorithm = new DTR_TD_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
                 break;
+            case NOML:
+                algorithm = new No_ML_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                break;
             default:
                 algorithm = new StaticSchedulingAlgorithm();
                 break;
