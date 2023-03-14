@@ -258,23 +258,23 @@ public class WorkflowSimBasicExample1 {
             //seedWriter.flush();
             //seedWriter.close();
 
-//            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
-//            MetaGetter.resetGenerator();
-//            runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
-//            MetaGetter.resetGenerator();
-//            runSimulation(i, Parameters.SchedulingAlgorithm.MCT, arr, resultsWriter, clusterSize);
-//            MetaGetter.resetGenerator();
-//            runSimulation(i, Parameters.SchedulingAlgorithm.ROUNDROBIN, arr, resultsWriter, clusterSize);
-//            MetaGetter.resetGenerator();
-//            runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
-//            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.MCT, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.ROUNDROBIN, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
 
 
 
             runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-            // runSimulation(i, Parameters.SchedulingAlgorithm.TEXTDISTANCE, arr, resultsWriter, clusterSize);
-            // MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.TEXTDISTANCE, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
 
             runSimulation(i, Parameters.SchedulingAlgorithm.CRITICALPATH, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
