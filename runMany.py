@@ -33,7 +33,7 @@ def run_many(wfs, types, percents):
 
 
 def main():
-    return run_many(["chipseq", "viralrecon", "sarek", "eager", "methylseq"], ["normal", "exponential"], [0.00, 0.05, 0.10, 0.15, 0.20])
+    return run_many(["chipseq", "viralrecon", "eager", "methylseq"], ["normal", "exponential"], [0.00, 0.05, 0.10, 0.15, 0.20])
     # print("test")
     # t = run_one(RunParameters("eager", "normal", 0.15))
     # print(t)
