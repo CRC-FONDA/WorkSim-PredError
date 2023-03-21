@@ -189,6 +189,9 @@ public class WorkflowScheduler extends DatacenterBroker {
             case NOML:
                 algorithm = new No_ML_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
                 break;
+            case CUSTOMCLUSTERNOML:
+                algorithm = new Custom_Clustering_No_ML_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                break;
             default:
                 algorithm = new StaticSchedulingAlgorithm();
                 break;

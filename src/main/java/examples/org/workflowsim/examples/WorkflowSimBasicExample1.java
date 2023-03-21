@@ -273,6 +273,8 @@ public class WorkflowSimBasicExample1 {
 
             runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
+            runSimulation(i, Parameters.SchedulingAlgorithm.CUSTOMCLUSTERNOML, arr, resultsWriter, clusterSize);
+            MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.TEXTDISTANCE, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
 
