@@ -167,7 +167,9 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             return filteredList.get(0);
         }
         // Ranking nach dem Task filtern und sortieren
-        List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.get_task_name())) || (t.get_task_name().contains(taskToLookup.getTaskList().get(0).getType())))
+        List<ReshiTask> filteredList = reshiTaskList.stream()
+                .filter(t -> (taskToLookup.getTaskList().get(0).getWorkflow().contains(t.get_workflow_name())) || (t.get_workflow_name().contains(taskToLookup.getTaskList().get(0).getWorkflow())))
+                .filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.get_task_name())) || (t.get_task_name().contains(taskToLookup.getTaskList().get(0).getType())))
                 .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                 .collect(Collectors.toList());
 

@@ -86,8 +86,8 @@ public class Custom_Clustering_No_ML_SchedulingAlgorithm extends BaseSchedulingA
             //V3
             Collections.sort(cloudlets, (j1, j2) -> {
 
-                int descandantsJ1 = depthDescendants(j1,0);
-                int descandantsJ2 = depthDescendants(j2,0);
+                int descandantsJ1 = depthDescendants(j1, 0);
+                int descandantsJ2 = depthDescendants(j2, 0);
 
                 if (descandantsJ1 < descandantsJ2) {
                     return 1;
@@ -159,7 +159,6 @@ public class Custom_Clustering_No_ML_SchedulingAlgorithm extends BaseSchedulingA
     }
 
 
-
     private ReshiTask determineBestMachine(Job taskToLookup, List<CondorVM> freeVMs) {
 
         // Für den initialen Task, welcher die Files fetcht wird random eine Node ausgewählt
@@ -170,11 +169,15 @@ public class Custom_Clustering_No_ML_SchedulingAlgorithm extends BaseSchedulingA
             return filteredList.get(0);
         }
         // Ranking nach dem Task filtern und sortieren
-        List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.get_task_name())) || (t.get_task_name().contains(taskToLookup.getTaskList().get(0).getType())))
+        List<ReshiTask> filteredList = reshiTaskList.stream()
+                .filter(t -> (taskToLookup.getTaskList().get(0).getWorkflow().contains(t.get_workflow_name())) || (t.get_workflow_name().contains(taskToLookup.getTaskList().get(0).getWorkflow())))
+                .filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.get_task_name())) || (t.get_task_name().contains(taskToLookup.getTaskList().get(0).getType())))
                 .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                 .collect(Collectors.toList());
 
         // falls der Task nicht gerankt wurde sollte lieber die schnellste node genommen werden
+        // todo: passiert so bisher aber noch nicht?
+        // todo: ist das überhaupt ne gute Heuristik?
         if (filteredList.size() == 0) {
 
             System.out.println("No ranking for:" + taskToLookup.getTaskList().get(0).getType());
@@ -197,24 +200,25 @@ public class Custom_Clustering_No_ML_SchedulingAlgorithm extends BaseSchedulingA
 
     /**
      * perform BFS to get the number of descendants.
+     *
      * @param job the starting task
      * @return number of total descendants
      */
     private int totalDescendants(Task job) {
         Queue<Task> queue = new LinkedList<>();
-        Map<Task,Boolean> tasks = new HashMap<>();
+        Map<Task, Boolean> tasks = new HashMap<>();
         int count = 0;
-        for (Task t : job.getChildList()){
+        for (Task t : job.getChildList()) {
             queue.add(t);
-            tasks.put(t,true);
+            tasks.put(t, true);
         }
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Task e = queue.poll();
             count++;
             assert (tasks.containsKey(e));
-            for (Task child : e.getChildList()){
-                if (!tasks.containsKey(child)){
-                    tasks.put(child,true);
+            for (Task child : e.getChildList()) {
+                if (!tasks.containsKey(child)) {
+                    tasks.put(child, true);
                     queue.add(child);
                 }
             }
@@ -224,7 +228,8 @@ public class Custom_Clustering_No_ML_SchedulingAlgorithm extends BaseSchedulingA
 
     /**
      * perform DFS to get the maximum depth of a task
-     * @param job the task to determine the depth of
+     *
+     * @param job   the task to determine the depth of
      * @param depth the starting depth (0 for the starting task)
      * @return the depth of the task
      */

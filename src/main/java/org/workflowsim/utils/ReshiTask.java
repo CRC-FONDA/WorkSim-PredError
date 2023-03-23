@@ -18,6 +18,7 @@ public class ReshiTask implements Comparable {
         this.node = node;
         this.rank = rank;
     }
+    public String get_workflow_name(){return this.workflow;}
 
     public String get_task_name(){return this.taskName;}
 
