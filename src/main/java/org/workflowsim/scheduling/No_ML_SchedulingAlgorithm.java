@@ -181,9 +181,10 @@ public class No_ML_SchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
             System.out.println("No ranking for:" + taskToLookup.getTaskList().get(0).getType());
 
-            List<ReshiTask> list = reshiTaskList.stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
+            List<ReshiTask> list = reshiTaskList.stream()
+                    .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                     .collect(Collectors.toList());
-            // Collections.shuffle(list);
+            Collections.shuffle(list);
             return list.get(0);
         }
 
