@@ -5,11 +5,13 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.cloudbus.cloudsim.Vm;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class MetaGetter {
@@ -39,6 +41,7 @@ public class MetaGetter {
     private static String realdaxPath = "src/main/resources/config/dax/";
 
     private static List<LinkedHashMap<String, Object>> arr;
+    private static LinkedHashMap<TaskRuntimeLUTKey, Double> taskRuntimeLUT = null;
 
     private static double getRandomFromNormalDist() {
 
@@ -79,6 +82,65 @@ public class MetaGetter {
         return random.nextDouble();
     }
 
+    static class TaskRuntimeLUTKey {
+        String taskName;
+        String instanceType;
+        String wfName;
+
+        TaskRuntimeLUTKey(String tn, String it, String wfn) {
+            taskName = tn;
+            instanceType = it;
+            wfName = wfn;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            TaskRuntimeLUTKey that = (TaskRuntimeLUTKey) o;
+            return taskName.equals(that.taskName) && instanceType.equals(that.instanceType) && wfName.equals(that.wfName);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(taskName, instanceType, wfName);
+        }
+    }
+
+    public static double getTaskRuntime(Task task, Vm vm) {
+        if (taskRuntimeLUT == null) {
+            taskRuntimeLUT = new LinkedHashMap<>();
+        }
+        TaskRuntimeLUTKey key = new TaskRuntimeLUTKey(task.getType(), vm.getName(), task.getWorkflow());
+        if (taskRuntimeLUT.containsKey(key)) {
+            return taskRuntimeLUT.get(key);
+        } else {
+            double task_runtime = 0;
+            AtomicInteger runtimeSum = new AtomicInteger();
+            AtomicInteger count = new AtomicInteger();
+            // todo: diese forEach frist enorm Rechenzeit -> verbessern
+            getArr().stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
+
+                if (task.getType().contains(((String) entry.get("taskName"))) &&
+                        vm.getName().equals((String) entry.get("instanceType")) &&
+                        ((String) entry.get("wfName")).contains(task.getWorkflow())) {
+                    runtimeSum.addAndGet((Integer) entry.get("realtime"));
+                    count.getAndIncrement();
+                }
+            });
+            if (count.get() != 0) {
+                task_runtime = ((double) runtimeSum.get()) / count.get();
+                //task_runtime = task.getCloudletLength() / vm.getMips();
+
+            } else {
+                task_runtime = task.getCloudletLength() / vm.getMips();
+            }
+
+            taskRuntimeLUT.put(key, task_runtime);
+            return task_runtime;
+        }
+    }
+
     public static double getRandomFactor() {
 
         BufferedReader bufferedReader;
@@ -109,7 +171,7 @@ public class MetaGetter {
 
     }
 
-    public static String getRealdaxPath(){
+    public static String getRealdaxPath() {
         return realdaxPath;
     }
 

@@ -272,25 +272,7 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
                 for (CondorVM vm : freeVMs) {
 
-                    AtomicInteger runtimeSum = new AtomicInteger();
-                    AtomicInteger count = new AtomicInteger();
-                    this.arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
-
-                        if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                vm.getName().equals((String) entry.get("instanceType")) &&
-                                ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                            runtimeSum.addAndGet((Integer) entry.get("realtime"));
-                            count.getAndIncrement();
-                        }
-                    });
-
-                    long lengthWithNoise;
-
-                    if (count.get() != 0) {
-                        lengthWithNoise = (long) ((runtimeSum.get() / count.get()) * MetaGetter.getRandomFactor());
-                    } else {
-                        lengthWithNoise = (long) (task.getCloudletLength() * MetaGetter.getRandomFactor());
-                    }
+                    long lengthWithNoise = (long) (MetaGetter.getTaskRuntime(task, vm) * MetaGetter.getRandomFactor());
 
                     if (minTime > lengthWithNoise) {
                         minTask = task;

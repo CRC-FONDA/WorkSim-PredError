@@ -257,7 +257,7 @@ public class WorkflowSimBasicExample1 {
             //seedWriter.write(randomSeed + "");
             //seedWriter.flush();
             //seedWriter.close();
-
+            // todo: minmin und maxmin verbrauchen ca. 80% der Rechenzeit, wenn alle Scheduler laufen -> hat was mit der forEach Summe zu tun
             runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
@@ -269,7 +269,7 @@ public class WorkflowSimBasicExample1 {
             runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
 
-
+            
 
             runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();

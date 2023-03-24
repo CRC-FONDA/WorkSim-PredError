@@ -473,33 +473,14 @@ public class CloudletSchedulerSpaceShared extends CloudletScheduler {
             return cloudletSubmit(cloudlet, fileTransferTime);
         }
         Task task = job.getTaskList().get(0);
-        double task_runtime = 0;
-
-        AtomicInteger runtimeSum = new AtomicInteger();
-        AtomicInteger count = new AtomicInteger();
-        this.taskList.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
-
-            if (task.getType().contains(((String) entry.get("taskName"))) &&
-                    vm.getName().equals((String) entry.get("instanceType")) &&
-                    ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                runtimeSum.addAndGet((Integer) entry.get("realtime"));
-                count.getAndIncrement();
-            }
-        });
-        if (count.get() != 0) {
-            task_runtime = runtimeSum.get() / count.get();
-            //task_runtime = task.getCloudletLength() / vm.getMips();
-
-        } else {
-            task_runtime = task.getCloudletLength() / vm.getMips();
-        }
+        double task_runtime = MetaGetter.getTaskRuntime(task, vm);
         // Scheduler müssen den falschen Werte nehmen und dann hier den richtigen und nicht umgekehrt
 
         // use the current capacity to estimate the extra amount of
         // time to file transferring. It must be added to the cloudlet length
         // scale the runtime linear up since we assume profiling
         double extraSize = capacity * fileTransferTime;
-        double length = task_runtime * 1000 / 3600 ;
+        double length = task_runtime * 1000 / 3600;
         length += extraSize;
 
         cloudlet.setCloudletLength((long) length);
