@@ -135,25 +135,7 @@ public class HEFTPlanningAlgorithmReshi extends BasePlanningAlgorithm {
                     costsVm.put(vm, Double.MAX_VALUE);
                 } else {
 
-                    double task_runtime = 0;
-
-                    AtomicInteger runtimeSum = new AtomicInteger();
-                    AtomicInteger count = new AtomicInteger();
-                    arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
-
-                        if (task.getType().contains(((String) entry.get("taskName"))) &&
-                                vm.getName().equals((String) entry.get("instanceType")) &&
-                                ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                            runtimeSum.addAndGet((Integer) entry.get("realtime"));
-                            count.getAndIncrement();
-                        }
-                    });
-                    if (count.get() != 0) {
-                        task_runtime = runtimeSum.get() / count.get();
-                        //task_runtime = task.getCloudletLength() / vm.getMips();
-                    } else {
-                        task_runtime = task.getCloudletLength() / vm.getMips();
-                    }
+                    double task_runtime = MetaGetter.getTaskRuntime(task, vm);
 
                     double lengthWithNoise = (task_runtime * (MetaGetter.getRandomFactor()));
 
