@@ -5,9 +5,15 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
 import org.cloudbus.cloudsim.Vm;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -42,6 +48,10 @@ public class MetaGetter {
 
     private static List<LinkedHashMap<String, Object>> arr;
     private static LinkedHashMap<TaskRuntimeLUTKey, Double> taskRuntimeLUT = null;
+
+    private static List<List<Integer>> clusterSeedIndices = null;
+
+    private static int clusterSize = 40;
 
     private static double getRandomFromNormalDist() {
 
@@ -80,6 +90,42 @@ public class MetaGetter {
         }
 
         return random.nextDouble();
+    }
+
+    public static List<Integer> getClusterNodeIDs(long clusterID) {
+        if (clusterSeedIndices == null) {
+            clusterSeedIndices = new ArrayList<>();
+        }
+        if (clusterSeedIndices.size() <= clusterID) {
+            SAXBuilder builder = new SAXBuilder();
+
+            Document dom;
+            try {
+                dom = builder.build(new File("src/main/resources/config/machines/machines.xml"));
+            } catch (JDOMException | IOException e) {
+                throw new RuntimeException(e);
+            }
+            Element root = dom.getRootElement();
+            List<Element> availableVMs = root.getChildren().get(0).getChildren("host");
+            while (clusterSeedIndices.size() <= clusterID) {
+                ArrayList<Integer> new_cluster = new ArrayList<>(clusterSize);
+                for (int i = 0; i < clusterSize; i++) {
+                    int randomNumber = (int) Math.round(MetaGetter.getRandomForCluster() * (availableVMs.size() - 1));
+                    new_cluster.add(randomNumber);
+                }
+                clusterSeedIndices.add(new_cluster);
+            }
+        }
+
+        return clusterSeedIndices.get((int) clusterID);
+    }
+
+    public static void setClusterSize(int newVal) {
+        clusterSize = newVal;
+    }
+
+    public static int getClusterSize() {
+        return clusterSize;
     }
 
     static class TaskRuntimeLUTKey {

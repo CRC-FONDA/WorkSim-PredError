@@ -85,6 +85,7 @@ public class WorkflowSimBasicExample1 {
     }
 
     protected static List<CondorVM> createVMs(int userId, int vms, long seed, List<LinkedHashMap<String, Object>> arr) {
+        List<Integer> clusterIndices = MetaGetter.getClusterNodeIDs(seed);
         SAXBuilder builder = new SAXBuilder();
 
         Document dom;
@@ -96,11 +97,10 @@ public class WorkflowSimBasicExample1 {
             LinkedList<CondorVM> results = new LinkedList<>();
             CondorVM[] vm = new CondorVM[vms];
             for (int i = 0; i < vms; ) {
-                int randomNumber = (int) Math.round(MetaGetter.getRandomForCluster() * (availableVMs.size() - 1));
                 // oder hier explizit langsame und schnelle -> in einem Java Program mal die Laufzeiten aufaddieren pro Maschine bzw. Workflow
                 //for (int j = 0; j < vms; j++) {
 
-                Element selectedVM = availableVMs.get(randomNumber);
+                Element selectedVM = availableVMs.get(clusterIndices.get(i));
                 double mips = 100; // 1000 entspricht actual Laufzeit * 10, 100 entspricht actual runtime * 100
                 int ram = selectedVM.getChildren("prop").get(0).getAttribute("value").getIntValue();
                 int pesNumber = selectedVM.getAttribute("core").getIntValue();
@@ -239,7 +239,6 @@ public class WorkflowSimBasicExample1 {
         prepareSimulations(MetaGetter.getArr(), 200, 40);
 
 
-
     }
 
     private static void prepareSimulations(List<LinkedHashMap<String, Object>> arr, int numberIterations, int clusterSize) throws IOException {
@@ -247,7 +246,7 @@ public class WorkflowSimBasicExample1 {
         BufferedWriter resultsWriter = new BufferedWriter(new FileWriter("results_" + numberIterations + "_" + clusterSize + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError() + "_" + MetaGetter.getWorkflow() + ".csv"));
 
 
-        resultsWriter.write("Workflow,Distribution,Error,NumberNodes,ClusterSeed,Scheduler,Runtime," + String.join(",", getAllVMNames()) + ",Nodes" + "\n");
+        resultsWriter.write("Workflow,Distribution,Error,NumberNodes,ClusterSeed,Scheduler,Runtime," + String.join(",", getAllVMNames()) + ",Nodes" + ",Cluster" + "\n");
         Long millis_start = System.currentTimeMillis();
         // Fehler bei random Cluster
         for (long i = 0; i < numberIterations; i++) {
@@ -269,7 +268,6 @@ public class WorkflowSimBasicExample1 {
             runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
 
-            
 
             runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
@@ -290,7 +288,7 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.RESHIFCFS, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-            
+
 
             MetaGetter.setListPointeroffset((int) (1000 * (i + 1)));
             MetaGetter.setRandPointerOffset((int) (1000 * (i + 1)));
@@ -309,6 +307,7 @@ public class WorkflowSimBasicExample1 {
              * exact vmNum would be smaller than that. Take care.
              */
             int vmNum = totalNumberVms;//number of vms;
+            MetaGetter.setClusterSize(totalNumberVms);
             /**
              * Should change this based on real physical path
              */
@@ -482,6 +481,7 @@ public class WorkflowSimBasicExample1 {
             map.put(vm, 0);
         });
 
+        // count how many tasks were done on each node type
         for (Job job : list) {
             for (CondorVM vm : vms) {
                 if (job.getVmId() == vm.getId()) {
@@ -489,11 +489,19 @@ public class WorkflowSimBasicExample1 {
                 }
             }
         }
+        TreeMap<String, Integer> cluster = new TreeMap<>();
+
+        getAllVMNames().forEach(vm -> {
+            cluster.put(vm, 0);
+        });
+        for (CondorVM vm : vms) {
+            cluster.put(vm.getName(), cluster.get(vm.getName()) + 1);
+        }
 
         //String.join(",", map.values() + "");
 
         try {
-            bufferedWriter.write(MetaGetter.getWorkflow() + "," + MetaGetter.getDistribution() + "," + MetaGetter.getError() + "," + numberVM + "," + seed + "," + schedulingAlgorithm + "," + list.get(list.size() - 1).getFinishTime() + "," + String.join(",", map.values() + "").replace("[", "").replace("]", "") + "," + map.toString().replace(",", ";") + "\n");
+            bufferedWriter.write(MetaGetter.getWorkflow() + "," + MetaGetter.getDistribution() + "," + MetaGetter.getError() + "," + numberVM + "," + seed + "," + schedulingAlgorithm + "," + list.get(list.size() - 1).getFinishTime() + "," + String.join(",", map.values() + "").replace("[", "").replace("]", "") + "," + map.toString().replace(",", ";") + "," + cluster.toString().replace(",", ";") + "\n");
             bufferedWriter.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -528,15 +536,15 @@ public class WorkflowSimBasicExample1 {
 
             if (job.getCloudletStatus() == Cloudlet.SUCCESS) {
 
-                if(job.getTaskList().size() == 0) {
+                if (job.getTaskList().size() == 0) {
                     Log.print("SUCCESS");
-                    Log.printLine(indent + indent +  job.getResourceId() +")"+ indent + indent + indent + job.getVmId()
+                    Log.printLine(indent + indent + job.getResourceId() + ")" + indent + indent + indent + job.getVmId()
                             + indent + indent + indent + dft.format(job.getActualCPUTime())
                             + indent + indent + dft.format(job.getExecStartTime()) + indent + indent + indent
                             + dft.format(job.getFinishTime()) + indent + indent + indent + job.getDepth());
                 } else {
                     Log.print("SUCCESS");
-                    Log.printLine(indent + indent + job.getTaskList().get(0).getType() +"(" + job.getResourceId() +")"+ indent + indent + indent + job.getVmId()
+                    Log.printLine(indent + indent + job.getTaskList().get(0).getType() + "(" + job.getResourceId() + ")" + indent + indent + indent + job.getVmId()
                             + indent + indent + indent + dft.format(job.getActualCPUTime())
                             + indent + indent + dft.format(job.getExecStartTime()) + indent + indent + indent
                             + dft.format(job.getFinishTime()) + indent + indent + indent + job.getDepth());
