@@ -19,9 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import org.apache.commons.math3.distribution.NormalDistribution;
-import org.apache.commons.math3.random.RandomDataGenerator;
-import org.apache.commons.math3.random.RandomGenerator;
+import com.jayway.jsonpath.internal.filter.ValueNodes;
 import org.cloudbus.cloudsim.Log;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -88,6 +86,16 @@ public final class WorkflowParser {
     protected Map<String, Task> mName2Task;
 
     /**
+     * Map from task name to list of names of parent tasks
+     */
+    protected Map<String, List<String>> mName2pNames;
+
+    /**
+     * Map from task name to list of names of child tasks
+     */
+    protected Map<String, List<String>> mName2cNames;
+
+    /**
      * Initialize a WorkflowParser
      *
      * @param userId the user id. Currently we have just checked single user
@@ -96,6 +104,8 @@ public final class WorkflowParser {
     public WorkflowParser(int userId) {
         this.userId = userId;
         this.mName2Task = new HashMap<>();
+        this.mName2pNames = new HashMap<>();
+        this.mName2cNames = new HashMap<>();
         this.daxPath = Parameters.getDaxPath();
         this.daxPaths = Parameters.getDAXPaths();
         this.jobIdStartsFrom = 1;
@@ -176,12 +186,12 @@ public final class WorkflowParser {
                         }   //multiple the scale, by default it is 1.0
                         length *= Parameters.getRuntimeScale();
                         long lengthWithNoise;
-                    /**    if (random.nextDouble() > 0.5) {
-                            lengthWithNoise = (long) (length * (1 + normalDistribution.sample() * 0.25));
-                        } else {
-                            lengthWithNoise = (long) (length * (1 - normalDistribution.sample() * 0.25));
-                        }
-                     **/
+                        /**    if (random.nextDouble() > 0.5) {
+                         lengthWithNoise = (long) (length * (1 + normalDistribution.sample() * 0.25));
+                         } else {
+                         lengthWithNoise = (long) (length * (1 - normalDistribution.sample() * 0.25));
+                         }
+                         **/
 
                         List<Element> fileList = node.getChildren();
                         List<FileItem> mFileList = new ArrayList<>();
@@ -270,8 +280,10 @@ public final class WorkflowParser {
                         task.setWorkflow(workflow);
                         task.setUserId(userId);
                         task.setNumberOfPes(numcores);
-                       // task.setCloudletLengthWithNoise(lengthWithNoise);
+                        // task.setCloudletLengthWithNoise(lengthWithNoise);
                         mName2Task.put(nodeName, task);
+                        mName2pNames.put(nodeName, new ArrayList<>());
+                        mName2cNames.put(nodeName, new ArrayList<>());
                         for (FileItem file : mFileList) {
                             task.addRequiredFile(file.getName());
                         }
@@ -291,6 +303,9 @@ public final class WorkflowParser {
                             for (Element parent : pList) {
                                 String parentName = parent.getAttributeValue("ref");
                                 if (mName2Task.containsKey(parentName)) {
+                                    mName2pNames.get(childName).add(parentName);
+                                    mName2cNames.get(parentName).add(childName);
+
                                     Task parentTask = (Task) mName2Task.get(parentName);
                                     parentTask.addChild(childTask);
                                     childTask.addParent(parentTask);
@@ -300,29 +315,77 @@ public final class WorkflowParser {
                         break;
                 }
             }
-            /**
-             * If a task has no parent, then it is root task.
-             */
-            ArrayList roots = new ArrayList<>();
-            for (Task task : mName2Task.values()) {
-                task.setDepth(0);
-                if (task.getParentList().isEmpty()) {
-                    roots.add(task);
+
+            // set depths of tasks
+            int cLevel = 0;
+            ArrayList<String> doneNames = new ArrayList<>();
+            ArrayList<String> remainingNames = new ArrayList<>(mName2Task.keySet());
+
+            // find root tasks and mark them done
+            for (String mName : remainingNames) {
+                if (mName2pNames.get(mName).size() == 0) {
+                    doneNames.add(mName);
+                    mName2Task.get(mName).setDepth(cLevel);
                 }
+            }
+            remainingNames.removeAll(doneNames);
+            cLevel += 1;
+
+            while (remainingNames.size() > 0) {
+                for (String mName : remainingNames) {
+                    // check if any parent is marked done
+                    for (String pName : mName2pNames.get(mName)) {
+                        if (doneNames.contains(pName)) {
+                            doneNames.add(mName);
+                            mName2Task.get(mName).setDepth(cLevel);
+                            break;
+                        }
+                    }
+                }
+                remainingNames.removeAll(doneNames);
+                // increment level
+                cLevel += 1;
+            }
+
+            // set impacts of tasks
+            doneNames = new ArrayList<>();
+            remainingNames = new ArrayList<>(mName2Task.keySet());
+            // find exit tasks and mark them done
+            ArrayList<String> exits = new ArrayList<>();
+            for (String mName : mName2Task.keySet()) {
+                if (mName2cNames.get(mName).size() == 0) {
+                    exits.add(mName);
+                }
+            }
+            double seedImpact = 1.0 / exits.size();
+            for (String mName : exits) {
+                mName2Task.get(mName).setImpact(seedImpact);
+                doneNames.add(mName);
+                remainingNames.remove(mName);
+            }
+
+            while (remainingNames.size() > 0) {
+                for (String mName : remainingNames) {
+                    if (doneNames.containsAll(mName2cNames.get(mName))) {
+                        double newImpact = 0;
+                        for (String cName : mName2cNames.get(mName)) {
+                            Task cTask = mName2Task.get(cName);
+                            newImpact += cTask.getImpact() / cTask.getParentList().size();
+                        }
+                        mName2Task.get(mName).setImpact(newImpact);
+                        //
+                        doneNames.add(mName);
+                    }
+                }
+                remainingNames.removeAll(doneNames);
             }
 
             /**
-             * Add depth from top to bottom.
-             */
-            for (Iterator it = roots.iterator(); it.hasNext(); ) {
-                Task task = (Task) it.next();
-                setDepth(task, 1);
-            }
-            /**
-             * Clean them so as to save memory. Parsing workflow may take much
-             * memory
+             * Clean them to save memory. Parsing workflow may take much memory
              */
             this.mName2Task.clear();
+            this.mName2pNames.clear();
+            this.mName2cNames.clear();
 
         } catch (JDOMException jde) {
             Log.printLine("JDOM Exception;Please make sure your dax file is valid");

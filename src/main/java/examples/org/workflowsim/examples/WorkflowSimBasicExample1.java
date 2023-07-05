@@ -219,7 +219,7 @@ public class WorkflowSimBasicExample1 {
         // Test
 
         if (args.length == 3) {
-            MetaGetter.setWorkflow(args[0]);
+            MetaGetter.setWorkflow(args[0].split("_")[0]);
             MetaGetter.setDistribution(args[1]);
             MetaGetter.setError(Double.parseDouble(args[2]));
             System.out.println("Start");
