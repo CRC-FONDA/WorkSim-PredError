@@ -5,17 +5,14 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
-import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
 import org.cloudbus.cloudsim.Vm;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.workflowsim.utils.ReshiTask;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -30,7 +27,7 @@ public class MetaGetter {
 
     private static double error = 0.5;
 
-    private static String workflow = "viralrecon";
+    private static String workflowName = "viralrecon";
 
     private static String distribution = "normal";
 
@@ -47,11 +44,15 @@ public class MetaGetter {
     private static String realdaxPath = "src/main/resources/config/dax/";
 
     private static List<LinkedHashMap<String, Object>> arr;
+
+    private static Map<String, List<ReshiTask>> reshiTaskListLUT;
     private static LinkedHashMap<TaskRuntimeLUTKey, Double> taskRuntimeLUT = null;
+    private static LinkedHashMap<TaskMachineRanksLUTKey, List<ReshiTask>> taskMachineRankingsLUT = null;
 
     private static List<List<Integer>> clusterSeedIndices = null;
 
     private static int clusterSize = 40;
+    private static String workflowFilePath;
 
     private static double getRandomFromNormalDist() {
 
@@ -128,6 +129,14 @@ public class MetaGetter {
         return clusterSize;
     }
 
+    public static void setWorkflowFilePath(String newFP) {
+        workflowFilePath = newFP;
+    }
+
+    public static String getWorkflowFileName() {
+        return workflowFilePath;
+    }
+
     static class TaskRuntimeLUTKey {
         String taskName;
         String instanceType;
@@ -165,9 +174,9 @@ public class MetaGetter {
             AtomicInteger runtimeSum = new AtomicInteger();
             AtomicInteger count = new AtomicInteger();
             // todo: diese forEach frist enorm Rechenzeit -> verbessern
-            getArr().stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).forEach(entry -> {
-
-                if (task.getType().contains(((String) entry.get("taskName"))) &&
+            String[] tmp = task.getType().split("_\\d{8}")[0].split(":");
+            getArr().stream().filter(e -> (((String) e.get("wfName")).toLowerCase()).contains(MetaGetter.getWorkflowName().toLowerCase())).forEach(entry -> {
+                if (tmp[tmp.length - 1].toLowerCase().contains((((String) entry.get("taskName")).toLowerCase())) &&
                         vm.getName().equals((String) entry.get("instanceType")) &&
                         ((String) entry.get("wfName")).contains(task.getWorkflow())) {
                     runtimeSum.addAndGet((Integer) entry.get("realtime"));
@@ -184,6 +193,46 @@ public class MetaGetter {
 
             taskRuntimeLUT.put(key, task_runtime);
             return task_runtime;
+        }
+    }
+
+    static class TaskMachineRanksLUTKey {
+        Job taskToLookup;
+        String ranksFileName;
+
+        TaskMachineRanksLUTKey(Job tn, String it) {
+            taskToLookup = tn;
+            ranksFileName = it;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            TaskMachineRanksLUTKey that = (TaskMachineRanksLUTKey) o;
+            return taskToLookup.equals(that.taskToLookup) && ranksFileName.equals(that.ranksFileName);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(taskToLookup, ranksFileName);
+        }
+    }
+
+    public static List<ReshiTask> getMachinesRankedForTask(Job taskToLookup, String ranksFilePath) {
+        if (taskMachineRankingsLUT == null) {
+            taskMachineRankingsLUT = new LinkedHashMap<>();
+        }
+        TaskMachineRanksLUTKey key = new TaskMachineRanksLUTKey(taskToLookup, ranksFilePath);
+        if (taskMachineRankingsLUT.containsKey(key)) {
+            return taskMachineRankingsLUT.get(key);
+        } else {
+            String[] tmp = taskToLookup.getTaskList().get(0).getType().split("_\\d{8}")[0].replace("_", "").split(":");
+            // Ranking nach dem Task filtern und sortieren
+            return getReshiTaskList(ranksFilePath).stream()
+                    .filter(t -> (taskToLookup.getTaskList().get(0).getWorkflow().toLowerCase().contains(t.get_workflow_name().toLowerCase())) || (t.get_workflow_name().toLowerCase().contains(taskToLookup.getTaskList().get(0).getWorkflow().toLowerCase())))
+                    .filter(t -> (tmp[tmp.length - 1].toLowerCase().contains(t.get_task_name().replace("_", "").toLowerCase())) || (t.get_task_name().replace("_", "").toLowerCase().contains(tmp[tmp.length - 1].toLowerCase())))
+                    .collect(Collectors.toList());
         }
     }
 
@@ -227,7 +276,7 @@ public class MetaGetter {
             try {
                 java.io.File f = new java.io.File("src/main/resources/config/runtimes/runtimes_pp.json");
                 arr = JsonPath.read(f, "$");
-                arr = arr.stream().filter(e -> ((String) e.get("wfName")).contains(MetaGetter.getWorkflow())).collect(Collectors.toList());
+                arr = arr.stream().filter(e -> (((String) e.get("wfName")).toLowerCase()).contains((MetaGetter.getWorkflowName()).toLowerCase())).collect(Collectors.toList());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -237,6 +286,32 @@ public class MetaGetter {
     }
 
 
+    public static List<ReshiTask> getReshiTaskList(String ranksFilePath) {
+        if (reshiTaskListLUT == null) {
+            reshiTaskListLUT = new LinkedHashMap<>();
+        }
+        if (reshiTaskListLUT.containsKey(ranksFilePath)) {
+            return reshiTaskListLUT.get(ranksFilePath);
+        }
+        List<ReshiTask> reshiTaskList = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(ranksFilePath))) {
+            String s = null;
+            bufferedReader.readLine();
+            while ((s = bufferedReader.readLine()) != null) {
+                String[] entries = s.split(",");
+                reshiTaskList.add(new ReshiTask(entries[1], entries[0], entries[2], Double.parseDouble(entries[3])));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        reshiTaskListLUT.put(ranksFilePath, reshiTaskList);
+
+        return reshiTaskList;
+    }
+
     public static void resetGenerator() {
         listPointer = listPointeroffset + 0;
         randPointer = randPointerOffset + 0;
@@ -244,8 +319,8 @@ public class MetaGetter {
 
     }
 
-    public static String getWorkflow() {
-        return workflow;
+    public static String getWorkflowName() {
+        return workflowName;
     }
 
     public static double getError() {
@@ -260,8 +335,8 @@ public class MetaGetter {
         MetaGetter.error = error;
     }
 
-    public static void setWorkflow(String workflow) {
-        MetaGetter.workflow = workflow;
+    public static void setWorkflowName(String workflowName) {
+        MetaGetter.workflowName = workflowName;
     }
 
     public static void setDistribution(String distribution) {

@@ -184,13 +184,13 @@ public class WorkflowScheduler extends DatacenterBroker {
                 algorithm = new RoundRobinSchedulingAlgorithm();
                 break;
             case TEXTDISTANCE:
-                algorithm = new DTR_TD_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.CRITICALPATH, "src/main/resources/config/ranking/DTR_TD_Rank_Export.csv");
                 break;
             case NOML:
-                algorithm = new No_ML_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.CRITICALPATH, "src/main/resources/config/ranking/no_ML_ranks.csv");
                 break;
             case CUSTOMCLUSTERNOML:
-                algorithm = new Custom_Clustering_No_ML_SchedulingAlgorithm(ReshiStrategy.CRITICALPATH);
+                algorithm = new ReshiSchedulingAlgorithm(ReshiStrategy.CRITICALPATH, "src/main/resources/config/ranking/custom_cluster_no_ML.csv");
                 break;
             default:
                 algorithm = new StaticSchedulingAlgorithm();

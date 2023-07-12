@@ -88,13 +88,14 @@ public class DAGParser {
             // parse XML file
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            Document doc = db.parse(new File(realDaxPath + MetaGetter.getWorkflow() + ".xml"));
+            Document doc = db.parse(new File(realDaxPath + MetaGetter.getWorkflowFileName() + ".xml"));
 
             // optional, but recommended
             doc.getDocumentElement().normalize();
 
             NodeList list = doc.getElementsByTagName("job");
-            for (int i = 0; i < list.getLength(); i++){
+            int l = list.getLength();
+            for (int i = 0; i < l; i++){
                 Node node = list.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;

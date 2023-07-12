@@ -219,10 +219,22 @@ public class WorkflowSimBasicExample1 {
         // Test
 
         if (args.length == 3) {
-            MetaGetter.setWorkflow(args[0].split("_")[0]);
+            MetaGetter.setWorkflowName(args[0]);
             MetaGetter.setDistribution(args[1]);
             MetaGetter.setError(Double.parseDouble(args[2]));
             System.out.println("Start");
+        } else if (args.length == 4) {
+            MetaGetter.setWorkflowName(args[0]);
+            MetaGetter.setDistribution(args[1]);
+            MetaGetter.setError(Double.parseDouble(args[2]));
+            MetaGetter.setWorkflowFilePath(args[3]);
+            System.out.println("Start");
+        } else {
+            System.out.println(
+                    "Parameters either:\n" +
+                            "if workflow name and file name are identical: [Workflow Name] [Distribution] [Error] \n" +
+                            "otherwise: [Workflow Name] [Distribution] [Error] [.dax file name]"
+            );
         }
         /*
         prepareSimulations(MetaGetter.getArr(), 200, 4);
@@ -243,7 +255,7 @@ public class WorkflowSimBasicExample1 {
 
     private static void prepareSimulations(List<LinkedHashMap<String, Object>> arr, int numberIterations, int clusterSize) throws IOException {
 
-        BufferedWriter resultsWriter = new BufferedWriter(new FileWriter("results_" + numberIterations + "_" + clusterSize + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError() + "_" + MetaGetter.getWorkflow() + ".csv"));
+        BufferedWriter resultsWriter = new BufferedWriter(new FileWriter("results_" + numberIterations + "_" + clusterSize + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError() + "_" + MetaGetter.getWorkflowFileName() + ".csv"));
 
 
         resultsWriter.write("Workflow,Distribution,Error,NumberNodes,ClusterSeed,Scheduler,Runtime," + String.join(",", getAllVMNames()) + ",Nodes" + ",Cluster" + "\n");
@@ -257,7 +269,7 @@ public class WorkflowSimBasicExample1 {
             //seedWriter.flush();
             //seedWriter.close();
             // todo: minmin und maxmin verbrauchen ca. 80% der Rechenzeit, wenn alle Scheduler laufen -> hat was mit der forEach Summe zu tun
-            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
+            /*runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
@@ -267,7 +279,7 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-
+*/
 
             runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
@@ -294,7 +306,7 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.setRandPointerOffset((int) (1000 * (i + 1)));
 
         }
-        System.out.println("Runtime in millis:" + (System.currentTimeMillis() - millis_start) + " for " + MetaGetter.getWorkflow() + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError());
+        System.out.println("Runtime in millis:" + (System.currentTimeMillis() - millis_start) + " for " + MetaGetter.getWorkflowFileName() + "_" + MetaGetter.getDistribution() + "_" + MetaGetter.getError());
         resultsWriter.close();
     }
 
@@ -311,7 +323,7 @@ public class WorkflowSimBasicExample1 {
             /**
              * Should change this based on real physical path
              */
-            String daxPath = "src/main/resources/config/dax/" + MetaGetter.getWorkflow() + ".xml";
+            String daxPath = "src/main/resources/config/dax/" + MetaGetter.getWorkflowFileName() + ".xml";
             File daxFile = new File(daxPath);
             if (!daxFile.exists()) {
                 Log.printLine("Warning: Please replace daxPath with the physical path in your working environment!");
@@ -501,7 +513,7 @@ public class WorkflowSimBasicExample1 {
         //String.join(",", map.values() + "");
 
         try {
-            bufferedWriter.write(MetaGetter.getWorkflow() + "," + MetaGetter.getDistribution() + "," + MetaGetter.getError() + "," + numberVM + "," + seed + "," + schedulingAlgorithm + "," + list.get(list.size() - 1).getFinishTime() + "," + String.join(",", map.values() + "").replace("[", "").replace("]", "") + "," + map.toString().replace(",", ";") + "," + cluster.toString().replace(",", ";") + "\n");
+            bufferedWriter.write(MetaGetter.getWorkflowName() + "," + MetaGetter.getDistribution() + "," + MetaGetter.getError() + "," + numberVM + "," + seed + "," + schedulingAlgorithm + "," + list.get(list.size() - 1).getFinishTime() + "," + String.join(",", map.values() + "").replace("[", "").replace("]", "") + "," + map.toString().replace(",", ";") + "," + cluster.toString().replace(",", ";") + "\n");
             bufferedWriter.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);

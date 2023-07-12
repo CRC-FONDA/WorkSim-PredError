@@ -13,32 +13,22 @@ import java.util.stream.Collectors;
 
 
 public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
+    protected String ranksFilePath;
 
+    protected ReshiStrategy reshiStrategy;
 
-    List<ReshiTask> reshiTaskList;
-
-    private ReshiStrategy reshiStrategy;
-
-    NormalDistribution normalDistribution;
-    Random random;
+    protected NormalDistribution normalDistribution;
+    protected Random random;
 
 
     public ReshiSchedulingAlgorithm(ReshiStrategy reshiStrategy) {
         this.reshiStrategy = reshiStrategy;
-        reshiTaskList = new ArrayList<>();
+        this.ranksFilePath = "src/main/resources/config/ranking/ranks_" + MetaGetter.getWorkflowName() + "_Decision Tree Regressor_1.csv";
+    }
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/config/ranking/ranks_"+ MetaGetter.getWorkflow() +"_Decision Tree Regressor_1.csv"))) {
-            String s = null;
-            bufferedReader.readLine();
-            while ((s = bufferedReader.readLine()) != null) {
-                String[] entries = s.split(",");
-                reshiTaskList.add(new ReshiTask(entries[1], entries[0], entries[2], Double.parseDouble(entries[3])));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ReshiSchedulingAlgorithm(ReshiStrategy reshiStrategy, String ranksFilePath) {
+        this.reshiStrategy = reshiStrategy;
+        this.ranksFilePath = ranksFilePath;
     }
 
     @Override
@@ -83,8 +73,8 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             //V3
             Collections.sort(cloudlets, (j1, j2) -> {
 
-                int descandantsJ1 = depthDescendants(j1,0);
-                int descandantsJ2 = depthDescendants(j2,0);
+                int descandantsJ1 = j1.getTaskList().get(0).getDepth();
+                int descandantsJ2 = j2.getTaskList().get(0).getDepth();
 
                 if (descandantsJ1 < descandantsJ2) {
                     return 1;
@@ -161,31 +151,28 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
         // Für den initialen Task, welcher die Files fetcht wird random eine Node ausgewählt
         if (taskToLookup.getTaskList().size() == 0) {
-            List<ReshiTask> filteredList = reshiTaskList.stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
+            List<ReshiTask> filteredList = MetaGetter.getReshiTaskList(ranksFilePath).stream().filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                     .collect(Collectors.toList());
             //Collections.shuffle(filteredList);
             return filteredList.get(0);
         }
         // Ranking nach dem Task filtern und sortieren
-        List<ReshiTask> filteredList = reshiTaskList.stream()
-                .filter(t -> (taskToLookup.getTaskList().get(0).getWorkflow().contains(t.get_workflow_name())) || (t.get_workflow_name().contains(taskToLookup.getTaskList().get(0).getWorkflow())))
-                .filter(t -> (taskToLookup.getTaskList().get(0).getType().contains(t.get_task_name())) || (t.get_task_name().contains(taskToLookup.getTaskList().get(0).getType())))
+        List<ReshiTask> filteredList = MetaGetter.getMachinesRankedForTask(taskToLookup, ranksFilePath).stream()
                 .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                 .collect(Collectors.toList());
-
         // falls der Task nicht gerankt wurde sollte lieber die schnellste node genommen werden
         if (filteredList.size() == 0) {
 
-            System.out.println("No ranking for:" + taskToLookup.getTaskList().get(0).getType());
+            // System.out.println("No ranking for:" + taskToLookup.getTaskList().get(0).getType());
 
-            List<ReshiTask> list = reshiTaskList.stream()
+            List<ReshiTask> list = MetaGetter.getReshiTaskList(ranksFilePath).stream()
                     .filter(t -> freeVMs.stream().map(vm -> vm.getName()).collect(Collectors.toList()).contains(t.get_machine_name()))
                     .collect(Collectors.toList());
             Collections.shuffle(list);
             return list.get(0);
         }
 
-        System.out.println("ranking found for:" + taskToLookup.getTaskList().get(0).getType());
+        // System.out.println("ranking found for:" + taskToLookup.getTaskList().get(0).getType());
 
         Collections.sort(filteredList);
         // todo: here we need to use different allocation heuristics
@@ -220,20 +207,5 @@ public class ReshiSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             }
         }
         return count;
-    }
-
-    /**
-     * perform DFS to get the maximum depth of a task
-     * @param job the task to determine the depth of
-     * @param depth the starting depth (0 for the starting task)
-     * @return the depth of the task
-     */
-    // V3
-    private static int depthDescendants(Task job, int depth) {
-        int result = depth;
-        for (Task t : job.getChildList()) {
-            result = Math.max(depthDescendants(t, depth + 1), depth);
-        }
-        return result;
     }
 }
