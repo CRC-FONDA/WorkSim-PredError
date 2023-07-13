@@ -1,12 +1,12 @@
 /**
  * Copyright 2012-2013 University Of Southern California
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -17,6 +17,7 @@ package org.workflowsim.scheduling;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.Log;
 import org.workflowsim.CondorVM;
@@ -72,9 +73,8 @@ public class StaticSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                 vm.setState(WorkflowSimTags.VM_STATUS_BUSY);
                 getScheduledList().add(cloudlet);
 
-                if(((Job) cloudlet).getTaskList().size() != 0) {
-                    Log.printLine("Schedules " + ((Job) cloudlet).getTaskList().get(0).getType() + " with "
-                            + cloudlet.getCloudletLength() + " to VM " + vm.getName() + "(" + vm.getId() + ")");
+                if (((Job) cloudlet).getTaskList().size() != 0) {
+                    // Log.printLine("Schedules " + ((Job) cloudlet).getTaskList().get(0).getType() + " with " + cloudlet.getCloudletLength() + " to VM " + vm.getName() + "(" + vm.getId() + ")");
                 }
 
             }

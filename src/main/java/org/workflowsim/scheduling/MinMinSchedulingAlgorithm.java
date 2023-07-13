@@ -182,7 +182,7 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
                             minTask = task;
                             minVm = vm;
                             minTime = lengthWithNoise;
-                            System.out.println("Set task " + task.getType() + "(" + minTask.getCloudletId() + ") with runtime " + minTime + " to min");
+                            // System.out.println("Set task " + task.getType() + "(" + minTask.getCloudletId() + ") with runtime " + minTime + " to min");
                         }
                     }
                 } catch (Exception e) {
@@ -199,7 +199,7 @@ public class MinMinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
             minVm.setState(WorkflowSimTags.VM_STATUS_BUSY);
             getScheduledList().add(minJob);
         }
-        System.out.println(getScheduledList());
+        // System.out.println(getScheduledList());
     }
 
 

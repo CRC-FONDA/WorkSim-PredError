@@ -317,7 +317,7 @@ public final class ClusteringEngine extends SimEntity {
      */
     @Override
     public void shutdownEntity() {
-        Log.printLine(getName() + " is shutting down...");
+        // Log.printLine(getName() + " is shutting down...");
     }
 
     /*
@@ -326,7 +326,7 @@ public final class ClusteringEngine extends SimEntity {
      */
     @Override
     public void startEntity() {
-        Log.printLine(getName() + " is starting...");
+        // Log.printLine(getName() + " is starting...");
         schedule(getId(), 0, WorkflowSimTags.START_SIMULATION);
     }
 

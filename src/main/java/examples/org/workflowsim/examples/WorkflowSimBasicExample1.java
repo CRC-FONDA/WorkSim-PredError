@@ -111,7 +111,7 @@ public class WorkflowSimBasicExample1 {
                 i++;
                 // }
             }
-            System.out.println(results.stream().map(v -> v.getName()).collect(Collectors.toList()));
+            // System.out.println(results.stream().map(v -> v.getName()).collect(Collectors.toList()));
             return results;
 
         } catch (JDOMException e) {
@@ -262,14 +262,16 @@ public class WorkflowSimBasicExample1 {
         Long millis_start = System.currentTimeMillis();
         // Fehler bei random Cluster
         for (long i = 0; i < numberIterations; i++) {
+            long tmp = i + 1;
+            System.out.println("Iteration " + tmp + "/" + numberIterations);
 
             //seed file anders nennen, damit bei parallelen Ausführugen nicht überschrieben, bzw. oben in Threads auslagern aber dann muss der Seed anders vergeben werden
             //BufferedWriter seedWriter = new BufferedWriter(new FileWriter("seed_" + MetaGetter.getWorkflow() + "_" + MetaGetter.getDistribution()+ "_" + MetaGetter.getError() + "_.txt"));
             //seedWriter.write(randomSeed + "");
             //seedWriter.flush();
             //seedWriter.close();
-            // todo: minmin und maxmin verbrauchen ca. 80% der Rechenzeit, wenn alle Scheduler laufen -> hat was mit der forEach Summe zu tun
-            /*runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
+
+            runSimulation(i, Parameters.SchedulingAlgorithm.MINMIN, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.MAXMIN, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
@@ -279,7 +281,7 @@ public class WorkflowSimBasicExample1 {
             MetaGetter.resetGenerator();
             runSimulation(i, Parameters.SchedulingAlgorithm.STATIC, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
-*/
+
 
             runSimulation(i, Parameters.SchedulingAlgorithm.NOML, arr, resultsWriter, clusterSize);
             MetaGetter.resetGenerator();
@@ -401,8 +403,9 @@ public class WorkflowSimBasicExample1 {
             CloudSim.startSimulation();
             List<Job> outputList0 = wfEngine.getJobsReceivedList();
             CloudSim.stopSimulation();
-            System.out.print(schedulingAlgorithm + "");
-            printJobList(outputList0, schedulingAlgorithm, vmNum, seed, bufferedWriter, vmlist0);
+            // System.out.print(schedulingAlgorithm + "");
+            // printJobList(outputList0, schedulingAlgorithm, vmNum, seed, bufferedWriter, vmlist0);
+            System.out.println();
         } catch (Exception e) {
             Log.printLine("The simulation has been terminated due to an unexpected error");
         }

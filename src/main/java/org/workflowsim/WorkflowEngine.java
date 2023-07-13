@@ -355,7 +355,7 @@ public final class WorkflowEngine extends SimEntity {
      */
     @Override
     public void shutdownEntity() {
-        Log.printLine(getName() + " is shutting down...");
+        // Log.printLine(getName() + " is shutting down...");
     }
 
     /*
@@ -365,7 +365,7 @@ public final class WorkflowEngine extends SimEntity {
      */
     @Override
     public void startEntity() {
-        Log.printLine(getName() + " is starting...");
+        // Log.printLine(getName() + " is starting...");
         schedule(getId(), 0, CloudSimTags.RESOURCE_CHARACTERISTICS_REQUEST);
     }
 

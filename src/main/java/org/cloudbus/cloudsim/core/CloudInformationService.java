@@ -294,7 +294,7 @@ public class CloudInformationService extends SimEntity {
 	 * @post $none
 	 */
 	private void notifyAllEntity() {
-		Log.printLine(super.getName() + ": Notify all CloudSim entities for shutting down.");
+		// Log.printLine(super.getName() + ": Notify all CloudSim entities for shutting down.");
 
 		signalShutdown(resList);
 		signalShutdown(gisList);

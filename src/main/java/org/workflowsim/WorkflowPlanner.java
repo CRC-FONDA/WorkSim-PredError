@@ -268,7 +268,7 @@ public final class WorkflowPlanner extends SimEntity {
      */
     @Override
     public void shutdownEntity() {
-        Log.printLine(getName() + " is shutting down...");
+        // Log.printLine(getName() + " is shutting down...");
     }
 
     /*
@@ -277,8 +277,8 @@ public final class WorkflowPlanner extends SimEntity {
      */
     @Override
     public void startEntity() {
-        Log.printLine("Starting WorkflowSim " + Parameters.getVersion());
-        Log.printLine(getName() + " is starting...");
+        // Log.printLine("Starting WorkflowSim " + Parameters.getVersion());
+        // Log.printLine(getName() + " is starting...");
         schedule(getId(), 0, WorkflowSimTags.START_SIMULATION);
     }
 

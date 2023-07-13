@@ -37,8 +37,8 @@ import org.workflowsim.utils.Parameters.SchedulingAlgorithm;
  * of VMs. It picks up a scheduling algorithm based on the configuration
  *
  * @author Weiwei Chen
- * @since WorkflowSim Toolkit 1.0
  * @date Apr 9, 2013
+ * @since WorkflowSim Toolkit 1.0
  */
 public class WorkflowScheduler extends DatacenterBroker {
 
@@ -53,7 +53,7 @@ public class WorkflowScheduler extends DatacenterBroker {
      * Created a new WorkflowScheduler object.
      *
      * @param name name to be associated with this entity (as required by
-     * Sim_entity class from simjava package)
+     *             Sim_entity class from simjava package)
      * @throws Exception the exception
      * @pre name != null
      * @post $none
@@ -222,9 +222,7 @@ public class WorkflowScheduler extends DatacenterBroker {
              */
             if (VmList.getById(getVmList(), vmId) != null) {
                 getVmsCreatedList().add(VmList.getById(getVmList(), vmId));
-                Log.printLine(CloudSim.clock() + ": " + getName() + ": VM #" + vmId
-                        + " has been created in Datacenter #" + datacenterId + ", Host #"
-                        + VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
+                // Log.printLine(CloudSim.clock() + ": " + getName() + ": VM #" + vmId + " has been created in Datacenter #" + datacenterId + ", Host #" + VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
             }
         } else {
             Log.printLine(CloudSim.clock() + ": " + getName() + ": Creation of VM #" + vmId
@@ -333,7 +331,7 @@ public class WorkflowScheduler extends DatacenterBroker {
      */
     @Override
     public void startEntity() {
-        Log.printLine(getName() + " is starting...");
+        // Log.printLine(getName() + " is starting...");
         // this resource should register to regional GIS.
         // However, if not specified, then register to system GIS (the
         // default CloudInformationService) entity.
@@ -353,7 +351,7 @@ public class WorkflowScheduler extends DatacenterBroker {
     @Override
     public void shutdownEntity() {
         clearDatacenters();
-        Log.printLine(getName() + " is shutting down...");
+        // Log.printLine(getName() + " is shutting down...");
     }
 
     /**
@@ -394,8 +392,7 @@ public class WorkflowScheduler extends DatacenterBroker {
     @Override
     protected void processResourceCharacteristicsRequest(SimEvent ev) {
         setDatacenterCharacteristicsList(new HashMap<>());
-        Log.printLine(CloudSim.clock() + ": " + getName() + ": Cloud Resource List received with "
-                + getDatacenterIdsList().size() + " resource(s)");
+        // Log.printLine(CloudSim.clock() + ": " + getName() + ": Cloud Resource List received with " + getDatacenterIdsList().size() + " resource(s)");
         for (Integer datacenterId : getDatacenterIdsList()) {
             sendNow(datacenterId, CloudSimTags.RESOURCE_CHARACTERISTICS, getId());
         }
