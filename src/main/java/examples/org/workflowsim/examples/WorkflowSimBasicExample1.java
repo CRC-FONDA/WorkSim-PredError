@@ -404,7 +404,7 @@ public class WorkflowSimBasicExample1 {
             List<Job> outputList0 = wfEngine.getJobsReceivedList();
             CloudSim.stopSimulation();
             // System.out.print(schedulingAlgorithm + "");
-            // printJobList(outputList0, schedulingAlgorithm, vmNum, seed, bufferedWriter, vmlist0);
+            printJobList(outputList0, schedulingAlgorithm, vmNum, seed, bufferedWriter, vmlist0);
             System.out.println();
         } catch (Exception e) {
             Log.printLine("The simulation has been terminated due to an unexpected error");
@@ -522,7 +522,7 @@ public class WorkflowSimBasicExample1 {
             throw new RuntimeException(e);
         }
 
-        printJobList(list);
+        //printJobList(list);
     }
 
     /**
