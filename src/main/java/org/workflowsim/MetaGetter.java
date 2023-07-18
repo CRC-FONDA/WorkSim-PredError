@@ -166,7 +166,8 @@ public class MetaGetter {
         if (taskRuntimeLUT == null) {
             taskRuntimeLUT = new LinkedHashMap<>();
         }
-        TaskRuntimeLUTKey key = new TaskRuntimeLUTKey(task.getType(), vm.getName(), task.getWorkflow());
+        String tmp2 = task.getType().split("_\\d{8}")[0];
+        TaskRuntimeLUTKey key = new TaskRuntimeLUTKey(tmp2, vm.getName(), task.getWorkflow());
         if (taskRuntimeLUT.containsKey(key)) {
             return taskRuntimeLUT.get(key);
         } else {
@@ -174,15 +175,17 @@ public class MetaGetter {
             AtomicInteger runtimeSum = new AtomicInteger();
             AtomicInteger count = new AtomicInteger();
             // todo: diese forEach frist enorm Rechenzeit -> verbessern
-            String[] tmp = task.getType().split("_\\d{8}")[0].split(":");
-            getArr().stream().filter(e -> (((String) e.get("wfName")).toLowerCase()).contains(MetaGetter.getWorkflowName().toLowerCase())).forEach(entry -> {
-                if (tmp[tmp.length - 1].toLowerCase().contains((((String) entry.get("taskName")).toLowerCase())) &&
-                        vm.getName().equals((String) entry.get("instanceType")) &&
-                        ((String) entry.get("wfName")).contains(task.getWorkflow())) {
-                    runtimeSum.addAndGet((Integer) entry.get("realtime"));
-                    count.getAndIncrement();
-                }
-            });
+            String[] tmp = tmp2.split(":");
+            getArr().stream().filter(e -> (((String) e.get("wfName")).toLowerCase()).contains(MetaGetter.getWorkflowName().toLowerCase()))
+                    .forEach(entry -> {
+                        if ((((String) entry.get("taskName")).toLowerCase().contains(tmp[tmp.length - 1].toLowerCase()) ||
+                                tmp[tmp.length - 1].toLowerCase().contains((((String) entry.get("taskName")).toLowerCase()))) &&
+                                vm.getName().equals((String) entry.get("instanceType")) &&
+                                ((String) entry.get("wfName")).contains(task.getWorkflow())) {
+                            runtimeSum.addAndGet((Integer) entry.get("realtime"));
+                            count.getAndIncrement();
+                        }
+                    });
             if (count.get() != 0) {
                 task_runtime = ((double) runtimeSum.get()) / count.get();
                 //task_runtime = task.getCloudletLength() / vm.getMips();
@@ -190,6 +193,7 @@ public class MetaGetter {
             } else {
                 task_runtime = task.getCloudletLength() / vm.getMips();
             }
+            assert task_runtime >= 1.;
 
             taskRuntimeLUT.put(key, task_runtime);
             return task_runtime;
@@ -197,11 +201,11 @@ public class MetaGetter {
     }
 
     static class TaskMachineRanksLUTKey {
-        Job taskToLookup;
+        String taskName;
         String ranksFileName;
 
-        TaskMachineRanksLUTKey(Job tn, String it) {
-            taskToLookup = tn;
+        TaskMachineRanksLUTKey(String tn, String it) {
+            taskName = tn;
             ranksFileName = it;
         }
 
@@ -210,12 +214,12 @@ public class MetaGetter {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             TaskMachineRanksLUTKey that = (TaskMachineRanksLUTKey) o;
-            return taskToLookup.equals(that.taskToLookup) && ranksFileName.equals(that.ranksFileName);
+            return taskName.equals(that.taskName) && ranksFileName.equals(that.ranksFileName);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(taskToLookup, ranksFileName);
+            return Objects.hash(taskName, ranksFileName);
         }
     }
 
@@ -223,11 +227,12 @@ public class MetaGetter {
         if (taskMachineRankingsLUT == null) {
             taskMachineRankingsLUT = new LinkedHashMap<>();
         }
-        TaskMachineRanksLUTKey key = new TaskMachineRanksLUTKey(taskToLookup, ranksFilePath);
+        String tmp2 = taskToLookup.getTaskList().get(0).getType().split("_\\d{8}")[0];
+        TaskMachineRanksLUTKey key = new TaskMachineRanksLUTKey(tmp2, ranksFilePath);
         if (taskMachineRankingsLUT.containsKey(key)) {
             return taskMachineRankingsLUT.get(key);
         } else {
-            String[] tmp = taskToLookup.getTaskList().get(0).getType().split("_\\d{8}")[0].replace("_", "").split(":");
+            String[] tmp = tmp2.replace("_", "").split(":");
             // Ranking nach dem Task filtern und sortieren
             return getReshiTaskList(ranksFilePath).stream()
                     .filter(t -> (taskToLookup.getTaskList().get(0).getWorkflow().toLowerCase().contains(t.get_workflow_name().toLowerCase())) || (t.get_workflow_name().toLowerCase().contains(taskToLookup.getTaskList().get(0).getWorkflow().toLowerCase())))
